@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b16lhy3gugkfr" path="res://components/GameManager.cs" id="1_h58yb"]
 [ext_resource type="PackedScene" uid="uid://c5px88knq1ng" path="res://entities/player/player.tscn" id="2_h58yb"]
+[ext_resource type="Material" uid="uid://dmedsp1d0tdsc" path="res://materials/prototype1.tres" id="3_h58yb"]
+[ext_resource type="PackedScene" uid="uid://bxw4q4echr0ak" path="res://entities/indigenous/indigenous.tscn" id="4_hqc6j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xfw0"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -13,6 +15,10 @@ sky_material = SubResource("ProceduralSkyMaterial_0xfw0")
 [sub_resource type="Environment" id="Environment_h58yb"]
 background_mode = 2
 sky = SubResource("Sky_0wfie")
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_hqc6j"]
+vertices = PackedVector3Array(-49.5, 0.5, -49.5, -49.5, 0.5, 49.5, 49.5, 0.5, 49.5, 49.5, 0.5, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [node name="Root" type="Node3D" unique_id=1520484741]
 
@@ -26,34 +32,67 @@ shadow_enabled = true
 [node name="GameManager" type="Node" parent="." unique_id=1853186753]
 script = ExtResource("1_h58yb")
 
-[node name="Scene" type="Node3D" parent="." unique_id=140462960]
-
 [node name="Player" parent="." unique_id=1094723584 instance=ExtResource("2_h58yb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 collision_mask = 3
 
-[node name="LevelGeometry" type="CSGCombiner3D" parent="." unique_id=1146191425]
+[node name="GroupController" parent="Player" index="2" unique_id=765934121]
+defaultRecruitRadius = 5.0
+
+[node name="Skeleton3D" parent="Player/PlayerModel/player" parent_id_path=PackedInt32Array(1094723584, 1591702748, 511003582) index="0" unique_id=1041321396]
+bones/3/rotation = Quaternion(0.007892953, 0, 0, 0.9999689)
+bones/4/position = Vector3(0.29968485, -0.04415252, -0.06411147)
+bones/5/position = Vector3(-0.29968485, -0.044152543, -0.06411147)
+bones/6/rotation = Quaternion(-0.003891746, 0.067286, -0.00026245686, 0.9977261)
+
+[node name="Scene" type="Node3D" parent="." unique_id=140462960]
+
+[node name="Indigenous" parent="Scene" unique_id=1576522292 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7163876, 0.6, -5.371781)
+
+[node name="Indigenous2" parent="Scene" unique_id=225183931 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43117344, 0.6, -5.371781)
+
+[node name="Indigenous3" parent="Scene" unique_id=1993239985 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.067087, 0.59999955, -10.157217)
+
+[node name="Indigenous4" parent="Scene" unique_id=992945453 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.740718, 0.6, -7.066302)
+
+[node name="Indigenous5" parent="Scene" unique_id=717322163 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9040866, 0.6, -2.4775872)
+
+[node name="Indigenous6" parent="Scene" unique_id=1908734272 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5663953, 0.6, -9.79706)
+
+[node name="Indigenous7" parent="Scene" unique_id=2061790200 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9350653, 0.600001, -5.741427)
+
+[node name="Indigenous8" parent="Scene" unique_id=431380502 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4874849, 0.600001, -13.868145)
+
+[node name="Indigenous9" parent="Scene" unique_id=1312287161 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9616637, 0.60000193, -13.246368)
+
+[node name="Indigenous10" parent="Scene" unique_id=1053801119 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4961915, 0.60000193, -10.849518)
+
+[node name="NavRegion" type="NavigationRegion3D" parent="Scene" unique_id=729775204]
+navigation_mesh = SubResource("NavigationMesh_hqc6j")
+
+[node name="LevelGeometry" type="CSGCombiner3D" parent="Scene/NavRegion" unique_id=1146191425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="LevelGeometry" unique_id=1342802520]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -3)
-size = Vector3(4, 4, 10)
+[node name="CSGBox3D" type="CSGBox3D" parent="Scene/NavRegion/LevelGeometry" unique_id=483365851]
+size = Vector3(100, 1, 100)
+material = ExtResource("3_h58yb")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="LevelGeometry" unique_id=1953843802]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -14.5)
-size = Vector3(4, 4, 9)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="LevelGeometry" unique_id=572424494]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -27.5)
-size = Vector3(4, 4, 9)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="LevelGeometry" unique_id=2125626571]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -42.5)
-size = Vector3(4, 4, 9)
-
-[node name="Level Detail" type="CSGCombiner3D" parent="." unique_id=795457955]
+[node name="Level Detail" type="CSGCombiner3D" parent="Scene/NavRegion" unique_id=795457955]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 collision_layer = 2
 collision_mask = 0
+
+[editable path="Player"]
+[editable path="Player/PlayerModel"]

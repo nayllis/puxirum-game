@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
@@ -17,6 +18,14 @@ public partial class GameManager : Node
 			hit = Vector3.Zero;
 			collider = null;
 		}
+	}
+
+	public struct ShapeResult
+	{
+		public Node3D collider;
+		public ulong colliderId;
+		public Rid rid;
+		public int shapeId;
 	}
 
 	private bool _isPaused = false;
@@ -89,7 +98,38 @@ public partial class GameManager : Node
 		hasHit = didHit,
 		normal = (Vector3)result["normal"],
 		hit = (Vector3)result["position"],
-		collider = (Node3D)(GodotObject)result["collider"]
+		collider = result["collider"].As<Node3D>()
         };
+	}
+
+	public static ShapeResult[] TestShapeCollision(Node3D source, Vector3 position, Shape3D shape, uint colMask = 4u,
+	Godot.Collections.Array<Rid> exceptions = default, bool areaColliding = false, bool bodyColliding = true, int maxResults = 32)
+	{
+		maxResults = Mathf.Max(maxResults, 1);
+		PhysicsDirectSpaceState3D spaceState = source.GetWorld3D().DirectSpaceState;
+		using PhysicsShapeQueryParameters3D query = new()
+		{
+			Shape = shape,
+			CollisionMask = colMask,
+			CollideWithAreas = areaColliding,
+			CollideWithBodies = bodyColliding,
+			Transform = new(Basis.Identity, position),
+			Exclude = exceptions ?? []
+		};
+
+		Godot.Collections.Array<Godot.Collections.Dictionary> result = spaceState.IntersectShape(query, maxResults);
+		ShapeResult[] hits = new ShapeResult[result.Count];
+		for (int i = 0; i < result.Count; i++)
+		{
+			Godot.Collections.Dictionary hit = result[i];
+			hits[i] = new ShapeResult
+			{
+				collider = hit["collider"].As<Node3D>(),
+				colliderId = (ulong)hit["collider_id"],
+				rid = (Rid)hit["rid"],
+				shapeId = (int)hit["shape"]
+			};
+		}
+		return hits;
 	}
 }

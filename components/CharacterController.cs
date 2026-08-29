@@ -15,6 +15,7 @@ public partial class CharacterController : CharacterBody3D
 	public Vector3 wishDir;
 	public Vector3 horizontalVelocity;
 
+
 	public struct MovementParams
 	{
 		public float MaxSpeed;
@@ -59,6 +60,14 @@ public partial class CharacterController : CharacterBody3D
 		horizontalVelocity.Z = Velocity.Z;
 
 		MoveAndSlide();
+	}
+
+	public void SnapVerticalToFloor()
+	{
+		if (Velocity.Y < 0f)
+		{
+			Velocity = new Vector3(Velocity.X, 0f, Velocity.Z);
+		}
 	}
 
 	public void IntegrateHorizontal(Vector3 direction, float delta, MovementParams p, bool grounded)
@@ -127,14 +136,6 @@ public partial class CharacterController : CharacterBody3D
 		if (direction == default) direction = Vector3.Up;
 		Vector3 impulse = (normalize ? direction.Normalized() : direction) * speed;
 		Velocity = stackVelocity ? Velocity + impulse : new Vector3(Velocity.X + impulse.X, impulse.Y, Velocity.Z + impulse.Z);
-	}
-
-	public void SnapVerticalToFloor()
-	{
-		if (Velocity.Y < 0f)
-		{
-			Velocity = new Vector3(Velocity.X, 0f, Velocity.Z);
-		}
 	}
 
 	public Vector3 GetHorizontalVelocity()

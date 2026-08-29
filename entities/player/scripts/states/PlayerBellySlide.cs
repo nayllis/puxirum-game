@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerBellySlide : IPlayerState
+public partial class PlayerBellySlide : ICharacterState<PlayerController>
 {
     private float _velocityThreshold = .5f;
 	private bool _exitingState = false;

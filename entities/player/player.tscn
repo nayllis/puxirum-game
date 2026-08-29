@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://c5px88knq1ng"]
 
 [ext_resource type="Script" uid="uid://2iwemuelcx2l" path="res://entities/player/scripts/PlayerController.cs" id="1_abrql"]
+[ext_resource type="Script" uid="uid://xunf008lp7mc" path="res://components/GroupController.cs" id="2_bls4j"]
+[ext_resource type="Script" uid="uid://msipwhmjup5o" path="res://components/CommandController.cs" id="2_fkugw"]
 [ext_resource type="PackedScene" uid="uid://bvrdodhm3aa6m" path="res://entities/player/player_model.tscn" id="2_sglur"]
 [ext_resource type="Script" uid="uid://sy5xr8nvo16w" path="res://components/CameraRig.cs" id="3_sglur"]
 
@@ -27,6 +29,20 @@ jumpSpeed = 5.0
 meshRoot = NodePath("PlayerModel")
 animTree = NodePath("PlayerModel/AnimationTree")
 
+[node name="NavAgent" type="NavigationAgent3D" parent="." unique_id=95662104]
+avoidance_enabled = true
+radius = 1.0
+
+[node name="CommandController" type="Node" parent="." unique_id=1872773664 node_paths=PackedStringArray("player", "groupController")]
+script = ExtResource("2_fkugw")
+player = NodePath("..")
+groupController = NodePath("../GroupController")
+
+[node name="GroupController" type="Node" parent="." unique_id=765934121 node_paths=PackedStringArray("player")]
+script = ExtResource("2_bls4j")
+player = NodePath("..")
+recruitCollisionMask = 8
+
 [node name="PlayerModel" parent="." unique_id=1591702748 instance=ExtResource("2_sglur")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 
@@ -39,10 +55,10 @@ turnTilt = 0.17
 
 [node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 511003582) index="0" unique_id=1041321396]
 bones/3/position = Vector3(0, 0.1915231, 0)
-bones/3/rotation = Quaternion(0.00021027174, 0, 0, 1)
-bones/4/position = Vector3(0.29968485, -0.02793646, -0.06411147)
-bones/5/position = Vector3(-0.29968485, -0.027936483, -0.06411147)
-bones/6/rotation = Quaternion(-0.01873853, 0.06727465, -0.0012637144, 0.9975578)
+bones/3/rotation = Quaternion(0.0032756058, 0, 0, 0.9999947)
+bones/4/position = Vector3(0.29968485, -0.012042092, -0.06411148)
+bones/5/position = Vector3(-0.29968485, -0.0120421145, -0.06411148)
+bones/6/rotation = Quaternion(-0.0098503465, 0.06728322, -0.00066430087, 0.99768513)
 
 [node name="BoneFollowThrough" parent="PlayerModel/player/Skeleton3D" index="1" unique_id=1960496805]
 active = false
