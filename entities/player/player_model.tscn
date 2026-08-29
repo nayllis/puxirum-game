@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://bvrdodhm3aa6m"]
+
+[ext_resource type="PackedScene" uid="uid://bd8u1qunencca" path="res://entities/player/assets/player.glb" id="1_hwc0q"]
+[ext_resource type="Script" uid="uid://bkyu44sex66hb" path="res://components/MeshSquash.cs" id="2_58iv5"]
+[ext_resource type="Script" uid="uid://48hfhida54o4" path="res://components/PlayerAnimManager.cs" id="3_loco"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mquu2"]
+animation = &"dive"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0xji7"]
+animation = &"jump_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ubuxp"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cb3p6"]
+animation = &"run"
+use_custom_timeline = true
+timeline_length = 0.284
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0dacf"]
+animation = &"walk"
+use_custom_timeline = true
+timeline_length = 0.534
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_7c3ka"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ubuxp")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"idle"
+blend_point_1/node = SubResource("AnimationNodeAnimation_cb3p6")
+blend_point_1/pos = 1.0
+blend_point_1/name = &"run"
+blend_point_2/node = SubResource("AnimationNodeAnimation_0dacf")
+blend_point_2/pos = 0.5
+blend_point_2/name = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7c3ka"]
+animation = &"wall_run_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h7hw1"]
+animation = &"wall_run_left"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_mquu2"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_7c3ka")
+blend_point_0/pos = -1.0
+blend_point_0/name = &"wall_run_right"
+blend_point_1/node = SubResource("AnimationNodeAnimation_h7hw1")
+blend_point_1/pos = 1.0
+blend_point_1/name = &"wall_run_left"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h7hw1"]
+switch_mode = 1
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mquu2"]
+xfade_time = 0.1
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lwij1"]
+xfade_time = 0.25
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fb34f"]
+xfade_time = 0.1
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_abfb1"]
+xfade_time = 0.1
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0xji7"]
+xfade_time = 0.1
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ubuxp"]
+xfade_time = 0.1
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cb3p6"]
+xfade_time = 0.25
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0dacf"]
+xfade_time = 0.1
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0xji7"]
+states/diving/node = SubResource("AnimationNodeAnimation_mquu2")
+states/diving/position = Vector2(278.5679, 231)
+states/jumping/node = SubResource("AnimationNodeAnimation_0xji7")
+states/jumping/position = Vector2(418.5679, 165.33333)
+states/walking/node = SubResource("AnimationNodeBlendSpace1D_7c3ka")
+states/walking/position = Vector2(418.44446, 50.148148)
+states/wall_run/node = SubResource("AnimationNodeBlendSpace1D_mquu2")
+states/wall_run/position = Vector2(569, 106)
+transitions = ["Start", "walking", SubResource("AnimationNodeStateMachineTransition_h7hw1"), "walking", "jumping", SubResource("AnimationNodeStateMachineTransition_mquu2"), "jumping", "walking", SubResource("AnimationNodeStateMachineTransition_lwij1"), "jumping", "wall_run", SubResource("AnimationNodeStateMachineTransition_fb34f"), "wall_run", "jumping", SubResource("AnimationNodeStateMachineTransition_abfb1"), "wall_run", "walking", SubResource("AnimationNodeStateMachineTransition_0xji7"), "diving", "jumping", SubResource("AnimationNodeStateMachineTransition_ubuxp"), "jumping", "diving", SubResource("AnimationNodeStateMachineTransition_cb3p6"), "diving", "walking", SubResource("AnimationNodeStateMachineTransition_0dacf")]
+graph_offset = Vector2(-440.81192, 83)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tnynl"]
+nodes/output/position = Vector2(311.1111, 244.44446)
+nodes/moveset/node = SubResource("AnimationNodeStateMachine_0xji7")
+nodes/moveset/position = Vector2(-66.66667, 244.44446)
+node_connections = [&"output", 0, &"moveset"]
+
+[node name="PlayerModel" unique_id=1591702748 instance=ExtResource("1_hwc0q")]
+
+[node name="MeshSquash" type="Node3D" parent="." index="0" unique_id=1387191143 node_paths=PackedStringArray("visual")]
+script = ExtResource("2_58iv5")
+visual = NodePath("../player/Skeleton3D/body")
+
+[node name="player" parent="." index="1" unique_id=511003582]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="player" index="0" unique_id=1041321396]
+bones/1/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+bones/2/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+bones/3/position = Vector3(0.29968485, -0.023627663, -0.06411148)
+bones/3/rotation = Quaternion(0.00018422664, 0, 0, 1)
+bones/4/position = Vector3(0.29968485, -0.027895661, -0.06411147)
+bones/5/position = Vector3(-0.29968485, -0.027895683, -0.06411147)
+bones/6/rotation = Quaternion(-0.018757004, 0.06727462, -0.00126496, 0.9975574)
+
+[node name="BoneFollowThrough" type="SpringBoneSimulator3D" parent="player/Skeleton3D" index="1" unique_id=1960496805]
+physics_interpolation_mode = 1
+influence = 0.1
+setting_count = 1
+settings/0/root_bone_name = "spine1"
+settings/0/root_bone = 3
+settings/0/end_bone_name = "head"
+settings/0/end_bone = 6
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 1.0
+settings/0/stiffness/damping_curve = null
+settings/0/drag/value = 0.4
+settings/0/drag/damping_curve = null
+settings/0/gravity/value = 0.0
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/joints/0/bone_name = "spine1"
+settings/0/joints/0/bone = 3
+settings/0/joints/1/bone_name = "head"
+settings/0/joints/1/bone = 6
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=2079867456]
+tree_root = SubResource("AnimationNodeBlendTree_tnynl")
+anim_player = NodePath("../AnimationPlayer")
+parameters/moveset/walking/blend_position = 0.0
+parameters/moveset/wall_run/blend_position = 0.0
+script = ExtResource("3_loco")

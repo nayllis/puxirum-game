@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://cc24xfhq4j1pe"]
+
+[ext_resource type="Script" uid="uid://b16lhy3gugkfr" path="res://components/GameManager.cs" id="1_h58yb"]
+[ext_resource type="PackedScene" uid="uid://c5px88knq1ng" path="res://entities/player/player.tscn" id="2_h58yb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xfw0"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0wfie"]
+sky_material = SubResource("ProceduralSkyMaterial_0xfw0")
+
+[sub_resource type="Environment" id="Environment_h58yb"]
+background_mode = 2
+sky = SubResource("Sky_0wfie")
+
+[node name="Root" type="Node3D" unique_id=1520484741]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1288774470]
+environment = SubResource("Environment_h58yb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1243558406]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="GameManager" type="Node" parent="." unique_id=1853186753]
+script = ExtResource("1_h58yb")
+
+[node name="Scene" type="Node3D" parent="." unique_id=140462960]
+
+[node name="Player" parent="." unique_id=1094723584 instance=ExtResource("2_h58yb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+collision_mask = 3
+
+[node name="LevelGeometry" type="CSGCombiner3D" parent="." unique_id=1146191425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LevelGeometry" unique_id=1342802520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -3)
+size = Vector3(4, 4, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="LevelGeometry" unique_id=1953843802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -14.5)
+size = Vector3(4, 4, 9)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="LevelGeometry" unique_id=572424494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -27.5)
+size = Vector3(4, 4, 9)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="LevelGeometry" unique_id=2125626571]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -42.5)
+size = Vector3(4, 4, 9)
+
+[node name="Level Detail" type="CSGCombiner3D" parent="." unique_id=795457955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+collision_layer = 2
+collision_mask = 0
