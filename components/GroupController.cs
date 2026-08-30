@@ -104,7 +104,7 @@ public partial class GroupController : Node
 		}
 	}
 
-	public bool AssignTo(Interactable interactable)
+	public bool AssignTo(IInteractable interactable)
 	{
 		if (interactable == null)
 			return false;
@@ -123,13 +123,14 @@ public partial class GroupController : Node
 				idle.Add(p);
 		}
 
+		Node3D target = (Node3D)interactable;
 		idle.Sort((a, b) =>
-			a.GlobalPosition.DistanceSquaredTo(interactable.GlobalPosition)
-				.CompareTo(b.GlobalPosition.DistanceSquaredTo(interactable.GlobalPosition)));
+			a.GlobalPosition.DistanceSquaredTo(target.GlobalPosition)
+				.CompareTo(b.GlobalPosition.DistanceSquaredTo(target.GlobalPosition)));
 
 		if (idle.Count < need)
 		{
-			GD.Print($"{interactable.Name}: need {need}, idle {idle.Count}");
+			GD.Print($"{target.Name}: need {need}, idle {idle.Count}");
 			return false;
 		}
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmr7yk3214iru"]
 
-[ext_resource type="Script" uid="uid://cii47vroeyxr2" path="res://entities/interactables/MovingObject.cs" id="1_move"]
+[ext_resource type="Script" uid="uid://ccetmhetw72ty" path="res://components/MovingObject.cs" id="1_move"]
 [ext_resource type="Material" uid="uid://dmedsp1d0tdsc" path="res://materials/prototype1.tres" id="2_mat"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wall"]

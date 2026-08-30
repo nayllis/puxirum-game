@@ -45,7 +45,6 @@ player = NodePath("..")
 recruitColLayer = 8
 
 [node name="PlayerModel" parent="." unique_id=1591702748 instance=ExtResource("2_sglur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 
 [node name="MeshSquash" parent="PlayerModel" index="0" unique_id=1387191143 node_paths=PackedStringArray("body")]
 body = NodePath("../..")
@@ -54,30 +53,23 @@ jumpAmount = 0.7
 stiffness = 40.0
 turnTilt = 0.17
 
-[node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 511003582) index="0" unique_id=1041321396]
-bones/3/position = Vector3(0, 0.1915231, 0)
-bones/3/rotation = Quaternion(0.007371538, 0, 0, 0.9999728)
-bones/4/position = Vector3(0.29968485, -0.045368932, -0.06411148)
-bones/5/position = Vector3(-0.29968485, -0.045368955, -0.06411148)
-bones/6/rotation = Quaternion(-0.013305672, 0.06728054, -0.0008973259, 0.997645)
+[node name="body" parent="PlayerModel/player/Skeleton3D" parent_id_path=PackedInt32Array(1591702748, 58357952) index="1" unique_id=2042826687]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="BoneFollowThrough" parent="PlayerModel/player/Skeleton3D" index="1" unique_id=1960496805]
-active = false
-influence = 0.3
-
-[node name="AnimationTree" parent="PlayerModel" index="2" unique_id=2079867456 node_paths=PackedStringArray("body")]
+[node name="AnimationTree" parent="PlayerModel" index="3" unique_id=2079867456 node_paths=PackedStringArray("body")]
 body = NodePath("../..")
 airPlaybackSpeed = 2.0
 
 [node name="StandingShape" type="CollisionShape3D" parent="." unique_id=1541405300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CylinderShape3D_klui8")
 
 [node name="ProneShape" type="CollisionShape3D" parent="." unique_id=141382874]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2813666, -0.20492554)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31863344, -0.20492554)
 shape = SubResource("BoxShape3D_3s436")
 
 [node name="CameraYaw" type="Node3D" parent="." unique_id=378122154]
-transform = Transform3D(1, 0, 0, 0, 0.8989358, 0.4380804, 0, -0.4380804, 0.8989358, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.8989358, 0.4380804, 0, -0.4380804, 0.8989358, 0, 1.6, 0)
 
 [node name="CameraBoom" type="Node3D" parent="CameraYaw" unique_id=1971890229 node_paths=PackedStringArray("player")]
 script = ExtResource("3_sglur")

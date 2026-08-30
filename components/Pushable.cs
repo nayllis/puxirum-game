@@ -1,31 +1,27 @@
 using Godot;
 
-public interface IInteractable
+public partial class Pushable : RigidBody3D, IInteractable
 {
-	int Remaining { get; }
-	Vector3 GlobalPosition { get; }
-	bool TryAssign(IndigenousController npc);
-	void Release(IndigenousController npc);
-	void ReleaseAll();
-	bool OnCommandWhenFull();
-	void NotifyArrived(IndigenousController npc);
-}
-
-public partial class Interactable : StaticBody3D, IInteractable
-{
-	[Export(PropertyHint.Range, "1, 8, 1")] public int requiredCount = 1;
+	[Export(PropertyHint.Range, "1, 8, 1")] public int requiredCount = 2;
 	[Export] public Godot.Collections.Array<Marker3D> slots = [];
 	[Export(PropertyHint.Range, ".1, 10, .1")] public float zoneRadius = 1.5f;
-
-	public Godot.Collections.Array<IndigenousController> Occupants { get; private set; } = [];
+	[Export] public Marker3D tip;
+	[Export(PropertyHint.Range, "0.5, 8, .1")] public float tipHeight = 2.8f;
+	[Export(PropertyHint.Range, "1, 200, 1")] public float impulsePerPerson = 15f;
+	[Export(PropertyHint.Range, "0.1, 0.9, .05")] public float toppleDot = 0.4f;
 
 	[Signal]
 	public delegate void SatisfiedChangedEventHandler(bool satisfied);
+	[Signal]
+	public delegate void ToppledEventHandler();
 
-	public virtual int Remaining => Mathf.Max(0, requiredCount - Occupants.Count);
+	public Godot.Collections.Array<IndigenousController> Occupants { get; private set; } = [];
+	public virtual int Remaining => _toppled ? 0 : Mathf.Max(0, requiredCount - Occupants.Count);
 	public bool IsSatisfied => ComputeSatisfied();
 
 	private bool _wasSatisfied;
+	private bool _hasPushed;
+	private bool _toppled;
 
 	public override void _Ready()
 	{
@@ -37,12 +33,28 @@ public partial class Interactable : StaticBody3D, IInteractable
 		if (slots.Count < requiredCount)
 			GD.PrintErr($"{Name}: requiredCount={requiredCount} but only {slots.Count} slots");
 
+		tip ??= GetNodeOrNull<Marker3D>("Tip");
 		SetupUseZone();
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
+		if (_toppled || !_hasPushed)
+			return;
+
+		if (GlobalTransform.Basis.Y.Dot(Vector3.Up) < toppleDot)
+		{
+			_toppled = true;
+			EmitSignal(SignalName.Toppled);
+			GD.Print($"{Name} toppled");
+			ReleaseAll();
+		}
 	}
 
 	public bool TryAssign(IndigenousController npc)
 	{
-		if (npc == null || Occupants.Contains(npc) || Remaining <= 0)
+		if (_toppled || npc == null || Occupants.Contains(npc) || Remaining <= 0)
 			return false;
 
 		Marker3D slot = GetFreeSlot();
@@ -63,26 +75,86 @@ public partial class Interactable : StaticBody3D, IInteractable
 		if (npc.Board.interactable == this)
 			npc.Board.ClearOccupy();
 
+		if (!_toppled)
+			_hasPushed = false;
+
 		RefreshSatisfied();
 	}
 
-	public virtual bool OnCommandWhenFull()
+	public bool OnCommandWhenFull()
 	{
-		return false;
+		if (_toppled)
+			return true;
+
+		ReleaseAll();
+		return true;
 	}
 
-	public virtual void NotifyArrived(IndigenousController npc)
+	public void NotifyArrived(IndigenousController npc)
 	{
 		if (!Occupants.Contains(npc))
 			return;
 
 		RefreshSatisfied();
+		if (IsSatisfied)
+			ApplyToppleImpulse();
 	}
 
 	public void ReleaseAll()
 	{
 		while (Occupants.Count > 0)
 			Release(Occupants[0]);
+	}
+
+	private void ApplyToppleImpulse()
+	{
+		if (_toppled || _hasPushed)
+			return;
+
+		int pushing = 0;
+		for (int i = 0; i < Occupants.Count; i++)
+		{
+			if (Occupants[i].Board.occupying)
+				pushing++;
+		}
+
+		if (pushing <= 0)
+			return;
+
+		Vector3 dir = GetPushDir();
+		if (dir.LengthSquared() < 0.0001f)
+			return;
+
+		_hasPushed = true;
+		Freeze = false;
+		Sleeping = false;
+		Vector3 offset = GlobalTransform.Basis * GetTipOffset();
+		ApplyImpulse(dir * impulsePerPerson * pushing, offset);
+		GD.Print($"{Name} impulse x{pushing}");
+	}
+
+	private Vector3 GetPushDir()
+	{
+		Vector3 dir;
+		if (slots.Count > 0 && slots[0] != null)
+		{
+			dir = GlobalPosition - slots[0].GlobalPosition;
+		}
+		else
+		{
+			dir = -GlobalTransform.Basis.Z;
+		}
+
+		dir.Y = 0f;
+		return dir.LengthSquared() > 0.0001f ? dir.Normalized() : -GlobalTransform.Basis.Z;
+	}
+
+	private Vector3 GetTipOffset()
+	{
+		if (tip != null)
+			return tip.Position;
+
+		return Vector3.Up * tipHeight;
 	}
 
 	private void SetupUseZone()
@@ -164,7 +236,7 @@ public partial class Interactable : StaticBody3D, IInteractable
 	{
 		foreach (Node child in node.GetChildren())
 		{
-			if (child is Marker3D marker)
+			if (child is Marker3D marker && marker.Name != "Tip")
 				slots.Add(marker);
 			CollectSlots(child);
 		}

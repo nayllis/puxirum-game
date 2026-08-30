@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://bvrdodhm3aa6m"]
+[gd_scene format=3 uid="uid://uqfpy6nnsx4m"]
 
-[ext_resource type="PackedScene" uid="uid://bd8u1qunencca" path="res://entities/player/assets/player.glb" id="1_hwc0q"]
-[ext_resource type="Script" uid="uid://bkyu44sex66hb" path="res://components/MeshSquash.cs" id="2_58iv5"]
-[ext_resource type="Script" uid="uid://48hfhida54o4" path="res://components/PlayerAnimManager.cs" id="3_loco"]
+[ext_resource type="PackedScene" uid="uid://brcd27iqdxmco" path="res://entities/indigenous/assets/indigenous.glb" id="1_yh7wn"]
+[ext_resource type="Script" uid="uid://bkyu44sex66hb" path="res://components/MeshSquash.cs" id="2_jyhto"]
+[ext_resource type="Script" uid="uid://d27jfbyuory3j" path="res://entities/indigenous/IndigenousAnimManager.cs" id="3_anim"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0xji7"]
 filter_enabled = true
@@ -56,10 +56,10 @@ animation = &"dive"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0xji7"]
 animation = &"jump_idle"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ubuxp"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xi26h"]
 animation = &"idle"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cb3p6"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_alund"]
 animation = &"run"
 use_custom_timeline = true
 timeline_length = 0.284
@@ -67,7 +67,7 @@ stretch_time_scale = true
 start_offset = 0.0
 loop_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0dacf"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3nsgy"]
 animation = &"walk"
 use_custom_timeline = true
 timeline_length = 0.534
@@ -76,27 +76,27 @@ start_offset = 0.0
 loop_mode = 1
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_7c3ka"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_ubuxp")
+blend_point_0/node = SubResource("AnimationNodeAnimation_xi26h")
 blend_point_0/pos = 0.0
 blend_point_0/name = &"idle"
-blend_point_1/node = SubResource("AnimationNodeAnimation_cb3p6")
+blend_point_1/node = SubResource("AnimationNodeAnimation_alund")
 blend_point_1/pos = 1.0
 blend_point_1/name = &"run"
-blend_point_2/node = SubResource("AnimationNodeAnimation_0dacf")
+blend_point_2/node = SubResource("AnimationNodeAnimation_3nsgy")
 blend_point_2/pos = 0.5
 blend_point_2/name = &"walk"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7c3ka"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r08td"]
 animation = &"wall_run_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h7hw1"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cmhtt"]
 animation = &"wall_run_left"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_mquu2"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_7c3ka")
+blend_point_0/node = SubResource("AnimationNodeAnimation_r08td")
 blend_point_0/pos = -1.0
 blend_point_0/name = &"wall_run_right"
-blend_point_1/node = SubResource("AnimationNodeAnimation_h7hw1")
+blend_point_1/node = SubResource("AnimationNodeAnimation_cmhtt")
 blend_point_1/pos = 1.0
 blend_point_1/name = &"wall_run_left"
 
@@ -148,7 +148,7 @@ states/wall_run/position = Vector2(569, 106)
 transitions = ["Start", "walking", SubResource("AnimationNodeStateMachineTransition_h7hw1"), "walking", "jumping", SubResource("AnimationNodeStateMachineTransition_mquu2"), "jumping", "walking", SubResource("AnimationNodeStateMachineTransition_lwij1"), "jumping", "wall_run", SubResource("AnimationNodeStateMachineTransition_fb34f"), "wall_run", "jumping", SubResource("AnimationNodeStateMachineTransition_abfb1"), "wall_run", "walking", SubResource("AnimationNodeStateMachineTransition_0xji7"), "diving", "jumping", SubResource("AnimationNodeStateMachineTransition_ubuxp"), "jumping", "diving", SubResource("AnimationNodeStateMachineTransition_cb3p6"), "diving", "walking", SubResource("AnimationNodeStateMachineTransition_0dacf")]
 graph_offset = Vector2(-235.81192, -29)
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tnynl"]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dxjqj"]
 graph_offset = Vector2(-471.40375, 208.42638)
 nodes/output/position = Vector2(422.22223, 288.8889)
 nodes/moveset/node = SubResource("AnimationNodeStateMachine_0xji7")
@@ -159,44 +159,24 @@ nodes/Blend2/node = SubResource("AnimationNodeBlend2_0xji7")
 nodes/Blend2/position = Vector2(200, 288.8889)
 node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"moveset", &"Blend2", 1, &"actions"]
 
-[node name="PlayerModel" unique_id=1591702748 instance=ExtResource("1_hwc0q")]
+[node name="IndigenousModel" unique_id=1570124928 instance=ExtResource("1_yh7wn")]
 
-[node name="MeshSquash" type="Node3D" parent="." index="0" unique_id=1387191143 node_paths=PackedStringArray("visual")]
-script = ExtResource("2_58iv5")
+[node name="MeshSquash" type="Node3D" parent="." index="0" unique_id=1142658281 node_paths=PackedStringArray("visual")]
+script = ExtResource("2_jyhto")
 visual = NodePath("../player/Skeleton3D/body")
 
-[node name="BoneFollowThrough" type="SpringBoneSimulator3D" parent="player/Skeleton3D" parent_id_path=PackedInt32Array(58357952) index="0" unique_id=1960496805]
-physics_interpolation_mode = 1
-influence = 0.1
-setting_count = 1
-settings/0/root_bone_name = "spine1"
-settings/0/root_bone = 3
-settings/0/end_bone_name = "head"
-settings/0/end_bone = 6
-settings/0/extend_end_bone = false
-settings/0/center_from = 0
-settings/0/individual_config = false
-settings/0/rotation_axis = 3
-settings/0/radius/value = 0.02
-settings/0/radius/damping_curve = null
-settings/0/stiffness/value = 1.0
-settings/0/stiffness/damping_curve = null
-settings/0/drag/value = 0.4
-settings/0/drag/damping_curve = null
-settings/0/gravity/value = 0.0
-settings/0/gravity/damping_curve = null
-settings/0/gravity/direction = Vector3(0, -1, 0)
-settings/0/joints/0/bone_name = "spine1"
-settings/0/joints/0/bone = 3
-settings/0/joints/1/bone_name = "head"
-settings/0/joints/1/bone = 6
-settings/0/enable_all_child_collisions = true
-settings/0/exclude_collision_count = 0
+[node name="Skeleton3D" parent="player" parent_id_path=PackedInt32Array(1494405968) index="0" unique_id=1516852720]
+bones/1/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+bones/2/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+bones/3/rotation = Quaternion(0.0041390434, 0, 0, 0.99999154)
+bones/4/position = Vector3(0.29968485, -0.014453439, -0.064111486)
+bones/5/position = Vector3(-0.29968485, -0.01445349, -0.06411148)
+bones/6/rotation = Quaternion(-0.0078524845, 0.067284405, -0.0005295649, 0.9977028)
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="3" unique_id=2079867456]
-tree_root = SubResource("AnimationNodeBlendTree_tnynl")
+[node name="AnimationTree" type="AnimationTree" parent="." index="3" unique_id=779424754]
+tree_root = SubResource("AnimationNodeBlendTree_dxjqj")
 anim_player = NodePath("../AnimationPlayer")
 parameters/moveset/walking/blend_position = 0.0
 parameters/moveset/wall_run/blend_position = 0.0
 parameters/Blend2/blend_amount = 0.0
-script = ExtResource("3_loco")
+script = ExtResource("3_anim")
