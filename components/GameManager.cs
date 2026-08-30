@@ -81,6 +81,19 @@ public partial class GameManager : Node
 		return (currentPosition - previousPosition) / (float)delta;
 	}
 
+	public static uint JoinPhysicsLayers(params uint[] layers)
+	{
+		uint mask = 0;
+		if (layers == null) return mask;
+
+		for (int i = 0; i < layers.Length; i++)
+		{
+			mask |= layers[i];
+		}
+
+		return mask;
+	}
+
 	public static RayCastResult TestRayCollisionPoint(Node3D source, Vector3 origin, Vector3 end,
 	uint colMask = 1, Godot.Collections.Array<Rid> exceptions = default, bool areaColliding = false,
 	bool bodyColliding = true)

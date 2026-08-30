@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cmr7yk3214iru"]
+
+[ext_resource type="Script" uid="uid://cii47vroeyxr2" path="res://entities/interactables/MovingObject.cs" id="1_move"]
+[ext_resource type="Material" uid="uid://dmedsp1d0tdsc" path="res://materials/prototype1.tres" id="2_mat"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall"]
+size = Vector3(6.6103516, 3, 3.0322266)
+
+[node name="Gate" type="AnimatableBody3D" unique_id=1419129933 node_paths=PackedStringArray("mesh", "targetMarkers")]
+collision_mask = 0
+script = ExtResource("1_move")
+mesh = NodePath("MeshInstance3D")
+targetMarkers = [NodePath("Marker1"), NodePath("Marker2")]
+timePerSegment = 1.2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1175758698]
+mesh = SubResource("BoxMesh_wall")
+surface_material_override/0 = ExtResource("2_mat")
+
+[node name="Marker1" type="Marker3D" parent="." unique_id=548075881]
+gizmo_extents = 0.4
+
+[node name="Marker2" type="Marker3D" parent="." unique_id=819575634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+gizmo_extents = 0.4

@@ -12,7 +12,7 @@ public partial class IndigenousAir : ICharacterState<IndigenousController>
 		float dt = (float)delta;
 
 		indigenous.IntegrateHorizontal(indigenous.wishDir, dt, p, grounded: false);
-		indigenous.IntegrateVertical(dt, p, applyGravity: false);
+		indigenous.IntegrateVertical(dt, p, applyGravity: true);
 
 		if (indigenous.IsOnFloor())
 		{

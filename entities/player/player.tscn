@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://msipwhmjup5o" path="res://components/CommandController.cs" id="2_fkugw"]
 [ext_resource type="PackedScene" uid="uid://bvrdodhm3aa6m" path="res://entities/player/player_model.tscn" id="2_sglur"]
 [ext_resource type="Script" uid="uid://sy5xr8nvo16w" path="res://components/CameraRig.cs" id="3_sglur"]
+[ext_resource type="Script" uid="uid://87qu8w4p8kpj" path="res://components/Reticle.cs" id="4_reticle"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_klui8"]
 height = 1.2
@@ -20,9 +21,9 @@ groundAcceleration = 15.0
 groundDeceleration = 30.0
 airAcceleration = 5.0
 wallRunMaxSpeed = 30.0
-wallRunAcceleration = 10.0
+wallRunAcceleration = 5.0
 wallRunDeceleration = 15.0
-wallJumpForce = 6.0
+wallJumpForce = 4.0
 wallGravityMultiplier = 0.7
 mouseSensitivity = 20.0
 jumpSpeed = 5.0
@@ -41,7 +42,7 @@ groupController = NodePath("../GroupController")
 [node name="GroupController" type="Node" parent="." unique_id=765934121 node_paths=PackedStringArray("player")]
 script = ExtResource("2_bls4j")
 player = NodePath("..")
-recruitCollisionMask = 8
+recruitColLayer = 8
 
 [node name="PlayerModel" parent="." unique_id=1591702748 instance=ExtResource("2_sglur")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
@@ -55,10 +56,10 @@ turnTilt = 0.17
 
 [node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 511003582) index="0" unique_id=1041321396]
 bones/3/position = Vector3(0, 0.1915231, 0)
-bones/3/rotation = Quaternion(0.0032756058, 0, 0, 0.9999947)
-bones/4/position = Vector3(0.29968485, -0.012042092, -0.06411148)
-bones/5/position = Vector3(-0.29968485, -0.0120421145, -0.06411148)
-bones/6/rotation = Quaternion(-0.0098503465, 0.06728322, -0.00066430087, 0.99768513)
+bones/3/rotation = Quaternion(0.007371538, 0, 0, 0.9999728)
+bones/4/position = Vector3(0.29968485, -0.045368932, -0.06411148)
+bones/5/position = Vector3(-0.29968485, -0.045368955, -0.06411148)
+bones/6/rotation = Quaternion(-0.013305672, 0.06728054, -0.0008973259, 0.997645)
 
 [node name="BoneFollowThrough" parent="PlayerModel/player/Skeleton3D" index="1" unique_id=1960496805]
 active = false
@@ -88,5 +89,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.3841858e-07, 2.8728948)
 [node name="Camera3D" type="Camera3D" parent="CameraYaw/CameraBoom" unique_id=507265797]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.3841858e-07, 2.8728948)
 fov = 80.0
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=451428271]
+layer = 10
+
+[node name="Reticle" type="Control" parent="HUD" unique_id=1847826736]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_reticle")
 
 [editable path="PlayerModel"]

@@ -46,6 +46,11 @@ public partial class PlayerController : CharacterController
 	[Export(PropertyHint.Range, "0.1, 3, .1")] public float wallStickForce = 10f;
 	[Export(PropertyHint.Range, "0, 1, .01, or_greater")] public float wallGravityMultiplier = .6f;
 
+	[ExportGroup("Trampoline")]
+	[Export(PropertyHint.Range, "1, 40, .5")] public float trampolineBoostSpeed = 5f;
+	[Export(PropertyHint.Range, "1, 40, .5")] public float trampolineMaxSpeed = 50f;
+	[Export(PropertyHint.Range, "0.05, 1, .05")] public float trampolineBounceCooldown = 0.15f;
+
 	[ExportGroup("Camera")]
 	[Export(PropertyHint.Range, ".1, 100, .1")] public float mouseSensitivity = 10f;
 	[Export(PropertyHint.Range, "-90, 0, .5")] public float minPitch = -80f;
@@ -59,6 +64,7 @@ public partial class PlayerController : CharacterController
 	public PlayerAnimManager animManager;
 
 	public float PlayerHeight => ((CylinderShape3D)standingShape.Shape).Height;
+	public ICharacterState<PlayerController> GetState => _state;
 
 	public Vector2 smoothInputDir;
 	
@@ -72,6 +78,7 @@ public partial class PlayerController : CharacterController
 
 	private float ScaledMouseSens => mouseSensitivity * .0001f;
 	private double _jumpBufferTimer = -1;
+	private float _trampolineBounceLock;
 
 	public override void NodeSetup()
 	{
@@ -125,6 +132,8 @@ public partial class PlayerController : CharacterController
 		JumpChecks(delta);
 		_state?.Physics(this, delta);
 		base._PhysicsProcess(delta);
+		if (_trampolineBounceLock > 0f)
+			_trampolineBounceLock -= (float)delta;
 		if (GetHorizontalVelocity().Length() > .1f) VelocityFov();
 	}
 
@@ -220,6 +229,22 @@ public partial class PlayerController : CharacterController
 		base.Jump(speed, direction, normalize, stackVelocity);
 		alreadyJumped = true;
 		ConsumeJumpBuffer();
+	}
+
+	public void BounceFromTrampoline()
+	{
+		if (_trampolineBounceLock > 0f)
+			return;
+		if (Velocity.Y > 0.5f)
+			return;
+
+		float speed = Mathf.Abs(Velocity.Y) + (HasBufferedJump ? trampolineBoostSpeed : 0);
+		speed = Mathf.Clamp(speed, 0, trampolineMaxSpeed);
+
+		Jump(speed, stackVelocity: false);
+		if (GetState is not PlayerAir)
+			ChangeState(new PlayerAir());
+		_trampolineBounceLock = trampolineBounceCooldown;
 	}
 
 
