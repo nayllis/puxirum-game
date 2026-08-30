@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerWall : IPlayerState
+public partial class PlayerWall : ICharacterState<PlayerController>
 {    
     private bool _onCooldown = false;
     private double _wallRunCooldown = .2;

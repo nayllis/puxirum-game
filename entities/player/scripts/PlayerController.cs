@@ -2,7 +2,7 @@ using Godot;
 
 public partial class PlayerController : CharacterController
 {
-	private IPlayerState _state = new PlayerAir();
+	private ICharacterState<PlayerController> _state = new PlayerAir();
 
 	[ExportGroup("Ground Movement")]
 	[Export(PropertyHint.Range, "1, 30, .5")] public float groundMaxSpeed = 10f;
@@ -90,7 +90,7 @@ public partial class PlayerController : CharacterController
 		else GD.PrintErr("AnimationTree is null");
 	}
 
-	public void ChangeState(IPlayerState state)
+	public void ChangeState(ICharacterState<PlayerController> state)
 	{
 		_state?.Exit(this);
 		_state = state;

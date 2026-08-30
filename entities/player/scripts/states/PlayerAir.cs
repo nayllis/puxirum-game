@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerAir : IPlayerState
+public partial class PlayerAir : ICharacterState<PlayerController>
 {
 	public void Enter(PlayerController player)
 	{

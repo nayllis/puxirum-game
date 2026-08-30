@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerDive : IPlayerState
+public partial class PlayerDive : ICharacterState<PlayerController>
 {
 	public void Enter(PlayerController player)
 	{
