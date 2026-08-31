@@ -150,12 +150,6 @@ radius = 6.4296875
 height = 5.307251
 sides = 32
 
-[node name="Level Detail" type="CSGCombiner3D" parent="Scene/NavRegion" unique_id=795457955]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
-collision_layer = 2
-collision_mask = 0
-
 [node name="ToggleInteractable" parent="Scene" unique_id=55711348 instance=ExtResource("5_toggle")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -30.693922, 0.600001, -19.942245)
 
@@ -166,12 +160,11 @@ toggle = NodePath("../ToggleInteractable")
 [node name="MeshInstance3D" parent="Scene/Gate" index="0" unique_id=1175758698]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2661133)
 
-[node name="Pushable" type="RigidBody3D" parent="Scene" unique_id=1015767312 node_paths=PackedStringArray("slots", "tip")]
+[node name="Pushable" type="RigidBody3D" parent="Scene" unique_id=1015767312 node_paths=PackedStringArray("tip")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3.2, -6)
 collision_layer = 17
 mass = 10.0
 script = ExtResource("7_q6nje")
-slots = [NodePath("Marker1"), NodePath("Marker2")]
 tip = NodePath("Tip")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Scene/Pushable" unique_id=1164907390]
