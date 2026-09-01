@@ -17,9 +17,15 @@ size = Vector3(0.5720215, 0.55859375, 0.9779663)
 [node name="Player" type="CharacterBody3D" unique_id=1094723584 node_paths=PackedStringArray("meshRoot", "animTree")]
 collision_layer = 8
 script = ExtResource("1_abrql")
-groundAcceleration = 15.0
+groundMaxSpeed = 8.0
+groundAcceleration = 6.0
 groundDeceleration = 30.0
-airAcceleration = 5.0
+airMaxSpeed = 9.0
+airAcceleration = 3.0
+diveBoost = 3.0
+diveMaxSpeed = 8.0
+diveAcceleration = 15.0
+diveDeceleration = 8.0
 wallRunMaxSpeed = 30.0
 wallRunAcceleration = 5.0
 wallRunDeceleration = 15.0
@@ -54,12 +60,12 @@ jumpAmount = 0.7
 stiffness = 40.0
 turnTilt = 0.17
 
-[node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 511003582) index="0" unique_id=1041321396]
+[node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 1293616771) index="0" unique_id=350688276]
 bones/3/position = Vector3(0, 0.1915231, 0)
-bones/3/rotation = Quaternion(0.007371538, 0, 0, 0.9999728)
-bones/4/position = Vector3(0.29968485, -0.045368932, -0.06411148)
-bones/5/position = Vector3(-0.29968485, -0.045368955, -0.06411148)
-bones/6/rotation = Quaternion(-0.013305672, 0.06728054, -0.0008973259, 0.997645)
+bones/3/rotation = Quaternion(3.6291225e-05, 0, 0, 1)
+bones/4/position = Vector3(0.29968485, -0.027385358, -0.06411147)
+bones/5/position = Vector3(-0.29968485, -0.02738538, -0.06411147)
+bones/6/rotation = Quaternion(-0.01880999, 0.067274556, -0.0012685335, 0.9975564)
 
 [node name="BoneFollowThrough" parent="PlayerModel/player/Skeleton3D" index="1" unique_id=1960496805]
 active = false

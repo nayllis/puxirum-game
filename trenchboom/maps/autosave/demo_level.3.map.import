@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://bqjjw3s18chy4"
+path="res://.godot/imported/demo_level.3.map-10fd3b26d737cf9d21a291976bcfe362.tres"
+
+[deps]
+
+source_file="res://trenchboom/maps/autosave/demo_level.3.map"
+dest_files=["res://.godot/imported/demo_level.3.map-10fd3b26d737cf9d21a291976bcfe362.tres"]
+
+[params]
+
