@@ -2,7 +2,10 @@ using Godot;
 
 public partial class IndigenousAir : ICharacterState<IndigenousController>
 {
-	public void Enter(IndigenousController indigenous){}
+	public void Enter(IndigenousController indigenous)
+	{
+		indigenous.animManager?.movesetPlayback.Travel("jumping");
+	}
 	public void Exit(IndigenousController indigenous){}
 	public void HandleInput(IndigenousController indigenous, InputEvent @event){}
 	public void Update(IndigenousController indigenous, double delta){}

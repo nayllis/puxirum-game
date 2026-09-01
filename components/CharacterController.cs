@@ -2,12 +2,18 @@ using Godot;
 
 public partial class CharacterController : CharacterBody3D
 {
+	[ExportGroup("General")]
 	[Export] public float health = 100;
 	[Export] public float jumpSpeed = 7f;
 	[Export] public float turnSpeed = 12f;
 	[Export] public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 	[Export] public Node3D meshRoot;
 	[Export] public AnimationTree animTree;
+
+	[ExportGroup("Step")]
+	[Export(PropertyHint.Range, "0, 1, .01")] public float maxStepHeight = .5f;
+	[Export(PropertyHint.Range, "0.1, 1, .01")] public float stepCheckDistance = .4f;
+	[Export(PropertyHint.Range, "0.05, 0.3, .01")] public float stepLowHeight = .12f;
 
 	public CollisionShape3D colShape;
 
@@ -32,7 +38,8 @@ public partial class CharacterController : CharacterBody3D
 		animTree ??= FindChild("AnimationTree") as AnimationTree;
 		if (animTree == null) GD.PrintErr("AnimationTree not found in CharacterController");
 
-		colShape = GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
+		colShape = GetNodeOrNull<CollisionShape3D>("StandingShape")
+			?? GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
 	}
 
 	public override void _Ready()
@@ -59,6 +66,7 @@ public partial class CharacterController : CharacterBody3D
 		horizontalVelocity.Y = 0;
 		horizontalVelocity.Z = Velocity.Z;
 
+		TryStepUp();
 		MoveAndSlide();
 	}
 
@@ -68,6 +76,79 @@ public partial class CharacterController : CharacterBody3D
 		{
 			Velocity = new Vector3(Velocity.X, 0f, Velocity.Z);
 		}
+	}
+
+	protected void TryStepUp()
+	{
+		if (!IsOnFloor() || wishDir.LengthSquared() < .0001f)
+			return;
+
+		Vector3 forward = wishDir;
+		forward.Y = 0f;
+		if (forward.LengthSquared() < .0001f)
+			return;
+		forward = forward.Normalized();
+
+		float maxHitNormal = .3f;
+		float radius = GetStepRadius();
+		float checkDist = Mathf.Max(stepCheckDistance, radius + .1f);
+		Vector3 probe = forward * checkDist;
+		uint mask = CollisionMask;
+		Godot.Collections.Array<Rid> exceptions = [GetRid()];
+		Vector3 feet = GlobalPosition;
+
+		GameManager.RayCastResult low = GameManager.TestRayCollisionPoint(
+			this,
+			feet + Vector3.Up * stepLowHeight,
+			feet + probe + Vector3.Up * stepLowHeight,
+			mask, exceptions);
+		if (!low.hasHit || low.normal.Y > maxHitNormal)
+			return;
+
+		Vector3 wallNormal = low.normal;
+		wallNormal.Y = 0f;
+		if (wallNormal.LengthSquared() < .0001f)
+			wallNormal = -forward;
+		else
+			wallNormal = wallNormal.Normalized();
+
+		Vector3 highFrom = low.hit + Vector3.Up * (maxStepHeight - stepLowHeight) + wallNormal * .02f;
+		GameManager.RayCastResult high = GameManager.TestRayCollisionPoint(
+			this,
+			highFrom,
+			highFrom - wallNormal * .15f,
+			mask, exceptions);
+		if (high.hasHit && high.normal.Y < maxHitNormal)
+			return;
+
+		Vector3 downFrom = low.hit - wallNormal * .1f + Vector3.Up * maxStepHeight;
+		GameManager.RayCastResult down = GameManager.TestRayCollisionPoint(
+			this,
+			downFrom,
+			downFrom - Vector3.Up * maxStepHeight,
+			mask, exceptions);
+		if (!down.hasHit || down.normal.Y < maxHitNormal)
+			return;
+
+		float lift = down.hit.Y - feet.Y + .02f;
+		if (lift < .03f || lift > maxStepHeight + .05f)
+			return;
+
+		Vector3 ontoStep = -wallNormal * .15f;
+		Transform3D lifted = GlobalTransform;
+		lifted.Origin += Vector3.Up * lift;
+		if (TestMove(lifted, ontoStep))
+			return;
+
+		GlobalPosition += Vector3.Up * lift;
+	}
+
+	private float GetStepRadius()
+	{
+		if (colShape?.Shape is CylinderShape3D cylinder)
+			return cylinder.Radius;
+
+		return .3f;
 	}
 
 	public void IntegrateHorizontal(Vector3 direction, float delta, MovementParams p, bool grounded)

@@ -28,7 +28,7 @@ public partial class CommandController : Node
 		GameManager.RayCastResult interactableRay = GameManager.TestRayCollisionPoint(
 			player, origin, end, interactableRayMask, exceptions);
 
-		Interactable interactable = FindInteractable(interactableRay.collider);
+		IInteractable interactable = FindInteractable(interactableRay.collider);
 		if (interactable == null)
 		{
 			GameManager.RayCastResult worldRay = GameManager.TestRayCollisionPoint(
@@ -47,11 +47,11 @@ public partial class CommandController : Node
 		groupController.AssignTo(interactable);
 	}
 
-	private static Interactable FindInteractable(Node node)
+	private static IInteractable FindInteractable(Node node)
 	{
 		while (node != null)
 		{
-			if (node is Interactable interactable)
+			if (node is IInteractable interactable)
 				return interactable;
 			node = node.GetParent();
 		}
@@ -59,18 +59,18 @@ public partial class CommandController : Node
 		return null;
 	}
 
-	private Interactable FindNearbyInteractable(Vector3 point)
+	private IInteractable FindNearbyInteractable(Vector3 point)
 	{
 		float maxSq = interactablePickRadius * interactablePickRadius;
-		Interactable best = null;
+		IInteractable best = null;
 		float bestSq = maxSq;
 
 		foreach (Node node in GetTree().GetNodesInGroup("interactable"))
 		{
-			if (node is not Interactable candidate)
+			if (node is not IInteractable candidate || node is not Node3D candidateNode)
 				continue;
 
-			Vector3 a = candidate.GlobalPosition;
+			Vector3 a = candidateNode.GlobalPosition;
 			Vector3 b = point;
 			a.Y = 0f;
 			b.Y = 0f;

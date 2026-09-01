@@ -43,7 +43,7 @@ public partial class PlayerController : CharacterController
 	[Export(PropertyHint.Range, "0, 40, 1")] public float wallRunDeceleration = 10f;
 	[Export(PropertyHint.Range, "0, 30, .5")] public float wallJumpForce = 3f;
 	[Export(PropertyHint.Range, "0, 30, .1")] public float wallExitForce = 6f;
-	[Export(PropertyHint.Range, "0.1, 3, .1")] public float wallStickForce = 10f;
+	[Export(PropertyHint.Range, "0.1, 10, .1, or_greater")] public float wallStickForce = 3f;
 	[Export(PropertyHint.Range, "0, 1, .01, or_greater")] public float wallGravityMultiplier = .6f;
 
 	[ExportGroup("Trampoline")]

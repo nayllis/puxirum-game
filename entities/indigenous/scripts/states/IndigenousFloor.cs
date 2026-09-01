@@ -5,6 +5,7 @@ public partial class IndigenousFloor : ICharacterState<IndigenousController>
 	public void Enter(IndigenousController indigenous)
 	{
 		indigenous.SnapVerticalToFloor();
+		indigenous.animManager?.movesetPlayback.Travel("walking");
 	}
 	public void Exit(IndigenousController indigenous){}
 	public void HandleInput(IndigenousController indigenous, InputEvent @event){}

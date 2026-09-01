@@ -31,6 +31,7 @@ public partial class IndigenousController : CharacterController
 	public NavigationAgent3D agent;
 	public CollisionShape3D standingShape;
 	public Area3D trampolineArea;
+	public IndigenousAnimManager animManager;
 
 	private ICharacterState<IndigenousController> _state = new IndigenousAir();
 	private Vector3 _pathDir;
@@ -51,6 +52,9 @@ public partial class IndigenousController : CharacterController
 
 		agent = GetNode<NavigationAgent3D>("NavAgent");
 		agent.VelocityComputed += OnVelocityComputed;
+
+		if (animTree is IndigenousAnimManager manager)
+			animManager = manager;
 	}
 
 	public override void _Ready()
@@ -63,6 +67,7 @@ public partial class IndigenousController : CharacterController
 	{
 		_state?.Update(this, delta);
 		base._Process(delta);
+		FaceMoveDirection(GetHorizontalVelocity(), delta);
 	}
 
 	public override void _PhysicsProcess(double delta)

@@ -23,7 +23,7 @@ public class CharacterBlackboard
 	public Vector3 moveTarget;
 	public bool hasMoveTarget;
 
-	public Interactable interactable;
+	public IInteractable interactable;
 	public Node3D slot;
 	public bool occupying;
 
@@ -61,7 +61,7 @@ public class CharacterBlackboard
 		lastFail = CharacterFail.None;
 	}
 
-	public void SetOccupy(Node3D occupySlot, Interactable occupyInteractable = null)
+	public void SetOccupy(Node3D occupySlot, IInteractable occupyInteractable = null)
 	{
 		if (occupySlot == null)
 		{

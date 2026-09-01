@@ -41,7 +41,6 @@ public partial class PlayerFloor : ICharacterState<PlayerController>
 		float dt = (float)delta;
 
 		player.IntegrateHorizontal(player.wishDir, dt, p, grounded: true);
-		player.SnapVerticalToFloor();
 
 		if (!player.IsOnFloor())
 		{
