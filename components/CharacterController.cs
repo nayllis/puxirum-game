@@ -154,13 +154,16 @@ public partial class CharacterController : CharacterBody3D
 	public void IntegrateHorizontal(Vector3 direction, float delta, MovementParams p, bool grounded)
 	{
 		Vector3 horiz = GetHorizontalVelocity();
+		Vector3 target = direction * p.MaxSpeed;
+
+		bool reversing = horiz.Length() > .0001 && horiz.Dot(direction) < 0f;
 
 		if (grounded && IsOnFloor())
 		{
 			direction = direction.Slide(GetFloorNormal());
 		}
 
-		if (direction.LengthSquared() > 0.0001f)
+		if (direction.LengthSquared() > 0.0001f && !reversing)
 		{
 			direction = direction.Normalized();
 
@@ -185,7 +188,6 @@ public partial class CharacterController : CharacterBody3D
 				}
 				else
 				{
-					Vector3 target = direction * p.MaxSpeed;
 					horiz = horiz.MoveToward(target, p.Acceleration * delta);
 				}
 			}
