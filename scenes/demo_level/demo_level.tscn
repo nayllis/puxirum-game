@@ -289,15 +289,24 @@ script = ExtResource("1_6ux3l")
 [node name="Player" parent="." unique_id=1094723584 instance=ExtResource("2_ixqxp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 collision_mask = 3
+groundMaxSpeed = 8.0
+groundAcceleration = 6.0
+airMaxSpeed = 9.0
+airAcceleration = 6.0
+diveBoost = 3.0
+diveMaxSpeed = 8.0
+diveAcceleration = 15.0
 
 [node name="GroupController" parent="Player" index="2" unique_id=765934121]
 defaultRecruitRadius = 5.0
 
-[node name="Skeleton3D" parent="Player/PlayerModel/player" parent_id_path=PackedInt32Array(1094723584, 1591702748, 1293616771) index="0" unique_id=350688276]
-bones/3/rotation = Quaternion(0.008875527, 0, 0, 0.9999606)
-bones/4/position = Vector3(0.29968485, -0.051730394, -0.06411148)
-bones/5/position = Vector3(-0.29968485, -0.051730417, -0.06411148)
-bones/6/rotation = Quaternion(-0.010226927, 0.06728298, -0.00068969757, 0.9976813)
+[node name="Skeleton3D" parent="Player/PlayerModel/player" parent_id_path=PackedInt32Array(1094723584, 1591702748, 549040219) index="0" unique_id=1901975078]
+bones/1/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+bones/2/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+bones/3/rotation = Quaternion(0.008173637, 0, 0, 0.9999666)
+bones/4/position = Vector3(0.29968485, -0.050147228, -0.06411149)
+bones/5/position = Vector3(-0.29968485, -0.05014728, -0.0641115)
+bones/6/rotation = Quaternion(-0.004201926, 0.067285895, -0.00028337256, 0.99772483)
 
 [node name="Scene" type="Node3D" parent="." unique_id=140462960]
 
