@@ -57,10 +57,10 @@ turnTilt = 0.17
 [node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 644296949) index="0" unique_id=392908549]
 bones/1/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
 bones/2/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
-bones/3/rotation = Quaternion(0.005843142, 0, 0, 0.99998295)
-bones/4/position = Vector3(0.29968485, -0.02417991, -0.06411151)
-bones/5/position = Vector3(-0.29968485, -0.024179962, -0.06411151)
-bones/6/rotation = Quaternion(-0.004618292, 0.06728579, -0.00031145904, 0.99772304)
+bones/3/rotation = Quaternion(0.00077125157, 0, 0, 0.99999976)
+bones/4/position = Vector3(0.29968485, -0.020729925, -0.06411149)
+bones/5/position = Vector3(-0.29968485, -0.020729959, -0.06411149)
+bones/6/rotation = Quaternion(-0.016767435, 0.06727697, -0.0011307875, 0.9975928)
 
 [node name="body" parent="PlayerModel/player/Skeleton3D" index="1" unique_id=560041153]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

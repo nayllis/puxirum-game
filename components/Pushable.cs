@@ -2,19 +2,19 @@ using Godot;
 
 public partial class Pushable : RigidBody3D, IInteractable
 {
-	[Export(PropertyHint.Range, "1, 8, 1")] public int requiredCount = 2;
+	[Export(PropertyHint.Range, "1, 5, 1")]public int requiredCount = 2;
 	[Export] public Godot.Collections.Array<Marker3D> slots = [];
 	[Export(PropertyHint.Range, ".1, 10, .1")] public float zoneRadius = 1.5f;
 	[Export] public Marker3D tip;
 	[Export(PropertyHint.Range, "0.5, 8, .1")] public float tipHeight = 2.8f;
-	[Export(PropertyHint.Range, "1, 200, 1")] public float impulsePerPerson = 15f;
+	[Export(PropertyHint.Range, "1, 200, 1")] public float impulsePerPerson = 35f;
 	[Export(PropertyHint.Range, "0.1, 0.9, .05")] public float toppleDot = 0.4f;
 
 	[Signal]
 	public delegate void SatisfiedChangedEventHandler(bool satisfied);
 	[Signal]
 	public delegate void ToppledEventHandler();
-
+	
 	public Godot.Collections.Array<IndigenousController> Occupants { get; private set; } = [];
 	public virtual int Remaining => _toppled ? 0 : Mathf.Max(0, requiredCount - Occupants.Count);
 	public bool IsSatisfied => ComputeSatisfied();
@@ -29,9 +29,7 @@ public partial class Pushable : RigidBody3D, IInteractable
 		AddToGroup("interactable");
 		if (slots.Count == 0)
 			CollectSlots(this);
-
-		if (slots.Count < requiredCount)
-			GD.PrintErr($"{Name}: requiredCount={requiredCount} but only {slots.Count} slots");
+		requiredCount = Mathf.Clamp(requiredCount, 1, slots.Count);
 
 		tip ??= GetNodeOrNull<Marker3D>("Tip");
 		SetupUseZone();
@@ -136,13 +134,21 @@ public partial class Pushable : RigidBody3D, IInteractable
 	private Vector3 GetPushDir()
 	{
 		Vector3 dir;
-		if (slots.Count > 0 && slots[0] != null)
+		if (slots.Count > 0 && slots[0] != null && Occupants.Count > 0)
 		{
-			dir = GlobalPosition - slots[0].GlobalPosition;
+			Vector3 avg = Vector3.Zero;
+
+			for (int i = 0; i < Occupants.Count; i++)
+			{
+				avg += Occupants[i].GlobalPosition;
+			}
+			avg /= Occupants.Count;
+			
+			dir = GlobalPosition - avg;
 		}
 		else
 		{
-			dir = -GlobalTransform.Basis.Z;
+			dir = -GlobalTransform.Basis.X;
 		}
 
 		dir.Y = 0f;

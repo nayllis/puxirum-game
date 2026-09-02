@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bxw4q4echr0ak" path="res://entities/indigenous/indigenous.tscn" id="4_hqc6j"]
 [ext_resource type="PackedScene" path="res://entities/interactables/hold_interactable.tscn" id="6_4tqo0"]
 [ext_resource type="PackedScene" uid="uid://cmr7yk3214iru" path="res://entities/interactables/gate.tscn" id="6_gate"]
+[ext_resource type="PackedScene" uid="uid://dqmto80pa72n7" path="res://objects/van/van.tscn" id="7_q6nje"]
+[ext_resource type="PackedScene" uid="uid://d16dphtud758c" path="res://objects/bulldozer/bulldozer.tscn" id="8_5ilxw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xfw0"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -35,17 +37,7 @@ shadow_enabled = true
 script = ExtResource("1_h58yb")
 
 [node name="Player" parent="." unique_id=1094723584 instance=ExtResource("2_h58yb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 collision_mask = 3
-
-[node name="GroupController" parent="Player" index="2" unique_id=765934121]
-defaultRecruitRadius = 5.0
-
-[node name="Skeleton3D" parent="Player/PlayerModel/player" parent_id_path=PackedInt32Array(1094723584, 1591702748, 1293616771) index="0" unique_id=350688276]
-bones/3/rotation = Quaternion(0.004446007, 0, 0, 0.9999901)
-bones/4/position = Vector3(0.29968485, -0.015802896, -0.06411148)
-bones/5/position = Vector3(-0.29968485, -0.015802918, -0.06411148)
-bones/6/rotation = Quaternion(-0.007186708, 0.06728478, -0.00048466722, 0.99770784)
 
 [node name="Scene" type="Node3D" parent="." unique_id=140462960]
 
@@ -153,11 +145,21 @@ toggle = NodePath("../HoldInteractable")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2661133)
 
 [node name="Indigenous" parent="." unique_id=1576522292 instance=ExtResource("4_hqc6j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.358974, 0.6, -14.661588)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.126816, 1.9073486e-06, -10.87749)
+
+[node name="Indigenous2" parent="." unique_id=567863248 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6245575, 1.9073486e-06, -9.18607)
+
+[node name="Indigenous3" parent="." unique_id=1150131826 instance=ExtResource("4_hqc6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.994763, 1.9073486e-06, -7.596229)
 
 [node name="HoldInteractable" parent="." unique_id=1915058707 instance=ExtResource("6_4tqo0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.844776, 0.17500095, -19.97696)
 
-[editable path="Player"]
-[editable path="Player/PlayerModel"]
+[node name="Van" parent="." unique_id=1467363783 instance=ExtResource("7_q6nje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7609606, 5.9604645e-07, -11.723568)
+
+[node name="Bulldozer" parent="." unique_id=485030025 instance=ExtResource("8_5ilxw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.408417, 1.2072318, -14.691128)
+
 [editable path="Gate"]

@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="4_67j58"]
 [ext_resource type="Material" uid="uid://drobqtpmfr66k" path="res://textures/texture_08.tres" id="5_6ux3l"]
 [ext_resource type="Material" uid="uid://bn6hdl0sa4r4s" path="res://textures/texture_08b.tres" id="7_8yxqs"]
+[ext_resource type="PackedScene" uid="uid://dqmto80pa72n7" path="res://objects/van/van.tscn" id="8_67j58"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xfw0"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -289,17 +290,15 @@ script = ExtResource("1_6ux3l")
 [node name="Player" parent="." unique_id=1094723584 instance=ExtResource("2_ixqxp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 collision_mask = 3
-groundAcceleration = 10.0
-turnSpeed = 20.0
 
 [node name="GroupController" parent="Player" index="2" unique_id=765934121]
 defaultRecruitRadius = 5.0
 
 [node name="Skeleton3D" parent="Player/PlayerModel/player" parent_id_path=PackedInt32Array(1094723584, 1591702748, 644296949) index="0" unique_id=392908549]
-bones/3/rotation = Quaternion(0.0038885085, 0, 0, 0.9999925)
-bones/4/position = Vector3(0.29968485, -0.03653027, -0.06411148)
-bones/5/position = Vector3(-0.29968485, -0.036530346, -0.06411148)
-bones/6/rotation = Quaternion(-0.016349202, 0.06727747, -0.0011025713, 0.9975997)
+bones/3/rotation = Quaternion(0.005375024, 0, 0, 0.99998564)
+bones/4/position = Vector3(0.29968485, -0.020979678, -0.06411149)
+bones/5/position = Vector3(-0.29968485, -0.020979706, -0.06411149)
+bones/6/rotation = Quaternion(-0.0053781713, 0.06728553, -0.00036270393, 0.9977192)
 
 [node name="Scene" type="Node3D" parent="." unique_id=140462960]
 
@@ -547,6 +546,9 @@ shape = SubResource("ConvexPolygonShape3D_576i2")
 
 [node name="entity_0_brush_74_collision_shape" type="CollisionShape3D" parent="Scene/NavRegion/FuncGodotMap/entity_0_worldspawn" unique_id=1997657395]
 shape = SubResource("ConvexPolygonShape3D_sb12r")
+
+[node name="RigidBody3D" parent="." unique_id=1467363783 instance=ExtResource("8_67j58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8692431, -0.027760506, -0.35338593)
 
 [editable path="Player"]
 [editable path="Player/PlayerModel"]
