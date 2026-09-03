@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cmr7yk3214iru" path="res://entities/interactables/gate.tscn" id="6_gate"]
 [ext_resource type="PackedScene" uid="uid://dqmto80pa72n7" path="res://objects/van/van.tscn" id="7_q6nje"]
 [ext_resource type="PackedScene" uid="uid://d16dphtud758c" path="res://objects/bulldozer/bulldozer.tscn" id="8_5ilxw"]
+[ext_resource type="PackedScene" uid="uid://crscau45vekrl" path="res://objects/excavator/excavator.tscn" id="9_bm41r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xfw0"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -161,5 +162,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7609606, 5.9604645e-07, -11
 
 [node name="Bulldozer" parent="." unique_id=485030025 instance=ExtResource("8_5ilxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.408417, 1.2072318, -14.691128)
+
+[node name="excavator" parent="." unique_id=1176887863 instance=ExtResource("9_bm41r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.241001, 0.018755853, -22.840103)
 
 [editable path="Gate"]

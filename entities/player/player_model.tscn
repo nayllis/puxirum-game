@@ -165,33 +165,13 @@ node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"moveset", &"Blend2"
 script = ExtResource("2_58iv5")
 visual = NodePath("../player/Skeleton3D/body")
 
-[node name="BoneFollowThrough" type="SpringBoneSimulator3D" parent="player/Skeleton3D" parent_id_path=PackedInt32Array(58357952) index="0" unique_id=1960496805]
-physics_interpolation_mode = 1
-influence = 0.1
-setting_count = 1
-settings/0/root_bone_name = "spine1"
-settings/0/root_bone = 3
-settings/0/end_bone_name = "head"
-settings/0/end_bone = 6
-settings/0/extend_end_bone = false
-settings/0/center_from = 0
-settings/0/individual_config = false
-settings/0/rotation_axis = 3
-settings/0/radius/value = 0.02
-settings/0/radius/damping_curve = null
-settings/0/stiffness/value = 1.0
-settings/0/stiffness/damping_curve = null
-settings/0/drag/value = 0.4
-settings/0/drag/damping_curve = null
-settings/0/gravity/value = 0.0
-settings/0/gravity/damping_curve = null
-settings/0/gravity/direction = Vector3(0, -1, 0)
-settings/0/joints/0/bone_name = "spine1"
-settings/0/joints/0/bone = 3
-settings/0/joints/1/bone_name = "head"
-settings/0/joints/1/bone = 6
-settings/0/enable_all_child_collisions = true
-settings/0/exclude_collision_count = 0
+[node name="Skeleton3D" parent="player" parent_id_path=PackedInt32Array(644296949) index="0" unique_id=392908549]
+bones/1/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+bones/2/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+bones/3/rotation = Quaternion(0.0047580753, 0, 0, 0.9999887)
+bones/4/position = Vector3(0.29968485, -0.017370729, -0.064111486)
+bones/5/position = Vector3(-0.29968485, -0.017370768, -0.064111486)
+bones/6/rotation = Quaternion(-0.0065410296, 0.067285046, -0.0004411186, 0.99771225)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="3" unique_id=2079867456]
 tree_root = SubResource("AnimationNodeBlendTree_tnynl")
