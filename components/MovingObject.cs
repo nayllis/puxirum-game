@@ -10,6 +10,7 @@ public partial class MovingObject : AnimatableBody3D
 		Random
 	}
 
+	[Export] public bool isEnabled = true;
 	[Export] public NodePath toggle;
 	[Export] public MeshInstance3D mesh;
 
@@ -31,11 +32,13 @@ public partial class MovingObject : AnimatableBody3D
 	private Transform3D[] _waypoints;
 	private int _currentIndex = 0;
 	private bool _isMoving = false;
+	private bool _meshIsParent = false;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		mesh ??= GetNodeOrNull<MeshInstance3D>("MeshInstance3D");
+		_meshIsParent = mesh != null && mesh.GetParent() == this;
 		EnsureCollision();
 		CacheWaypoints();
 
@@ -67,7 +70,8 @@ public partial class MovingObject : AnimatableBody3D
 
 	public void StartMovement()
 	{
-		if (_isMoving || _waypoints == null || _waypoints.Length < 2)
+		if (!isEnabled) GD.Print($"{Name} is disabled. Not moving.");
+		if (_isMoving || _waypoints == null || _waypoints.Length < 2 || !isEnabled)
 			return;
 
 		_isMoving = true;
@@ -230,7 +234,7 @@ public partial class MovingObject : AnimatableBody3D
 	private void AddMoveTo(Transform3D target)
 	{
 		NodePath property = useGlobalSpace ? "global_transform" : "transform";
-		_tween.TweenProperty(this, property, target, timePerSegment);
+		_tween.TweenProperty(_meshIsParent ? mesh : this, property, target, timePerSegment);
 	}
 
 	private void AddWait()

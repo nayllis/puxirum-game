@@ -140,7 +140,8 @@ collision_mask = 0
 
 [node name="Gate" parent="." unique_id=1419129933 instance=ExtResource("6_gate")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -25.202599, 1.500001, -10.332604)
-toggle = NodePath("../HoldInteractable")
+mode = 0
+startAutomatically = true
 
 [node name="MeshInstance3D" parent="Gate" index="0" unique_id=1175758698]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2661133)
@@ -154,16 +155,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6245575, 1.9073486e-06, -
 [node name="Indigenous3" parent="." unique_id=1150131826 instance=ExtResource("4_hqc6j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.994763, 1.9073486e-06, -7.596229)
 
-[node name="HoldInteractable" parent="." unique_id=1915058707 instance=ExtResource("6_4tqo0")]
+[node name="HoldInteractable" parent="." unique_id=1915058707 node_paths=PackedStringArray("slots") instance=ExtResource("6_4tqo0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.844776, 0.17500095, -19.97696)
+slots = []
 
-[node name="Van" parent="." unique_id=1467363783 instance=ExtResource("7_q6nje")]
+[node name="Van" parent="." unique_id=1467363783 node_paths=PackedStringArray("slots") instance=ExtResource("7_q6nje")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7609606, 5.9604645e-07, -11.723568)
+slots = []
 
-[node name="Bulldozer" parent="." unique_id=485030025 instance=ExtResource("8_5ilxw")]
+[node name="Bulldozer" parent="." unique_id=485030025 node_paths=PackedStringArray("slots") instance=ExtResource("8_5ilxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.408417, 1.2072318, -14.691128)
+slots = []
 
-[node name="excavator" parent="." unique_id=1176887863 instance=ExtResource("9_bm41r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.241001, 0.018755853, -22.840103)
+[node name="Excavator" parent="." unique_id=1176887863 instance=ExtResource("9_bm41r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.380156, 0.01875633, -12.9580345)
 
 [editable path="Gate"]
