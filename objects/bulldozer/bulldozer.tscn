@@ -82,4 +82,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5742404, 0.6350223, 0.0861
 [node name="Tip" type="Marker3D" parent="." unique_id=275173814]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7521603, 0)
 
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=835913784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1997484, 0)
+height = 5.0
+vertices = PackedVector3Array(-2.1679, 0, -3.6361086, 2.0302582, 0, -3.5902271, 2.167902, 0, 2.8102417, 2.7184792, 0, 2.9020045, 2.6267166, 0, 5.241961, -2.7643604, 0, 5.264902, -2.6955376, 0, 2.924945, -2.2596626, 0, 2.7184787)
+
 [editable path="Mesh"]

@@ -37,6 +37,7 @@ public partial class IndigenousController : CharacterController
 	private Vector3 _pathDir;
 	private Vector3 _settledCommandPoint;
 	private bool _followSettled;
+	private float _avoidanceMaxSpeed = -1f;
 
 	public override void NodeSetup()
 	{
@@ -216,6 +217,21 @@ public partial class IndigenousController : CharacterController
 		return to.LengthSquared();
 	}
 
+	public MovementParams GetGroundParamsForMove()
+	{
+		MovementParams p = GetGroundParams();
+		if (_avoidanceMaxSpeed >= 0f)
+			p.MaxSpeed = _avoidanceMaxSpeed;
+		return p;
+	}
+	public MovementParams GetAirParamsForMove()
+	{
+		MovementParams p = GetAirParams();
+		if (_avoidanceMaxSpeed >= 0f)
+			p.MaxSpeed = Mathf.Min(_avoidanceMaxSpeed, airMaxSpeed);
+		return p;
+	}
+
 	private void UpdateWishDirection(double delta)
 	{
 		if (Board.goal != CharacterGoal.Follow && Board.goal != CharacterGoal.MoveTo)
@@ -251,8 +267,6 @@ public partial class IndigenousController : CharacterController
 		{
 			if (UpdateFollowSettle(true))
 			{
-				if (agent.AvoidanceEnabled)
-					agent.AvoidanceEnabled = false;
 				StopWish();
 				return;
 			}
@@ -326,14 +340,19 @@ public partial class IndigenousController : CharacterController
 	private void ApplyWish(Vector3 dir)
 	{
 		_pathDir = dir;
-		if (agent.AvoidanceEnabled) agent.Velocity = _pathDir * groundMaxSpeed;
-		else wishDir = _pathDir;
+		if (agent.AvoidanceEnabled) agent.Velocity = dir.LengthSquared() > .0001f ? dir * groundMaxSpeed : Vector3.Zero;
+		else
+		{
+			_avoidanceMaxSpeed = -1f;
+			wishDir = dir;
+		}
 	}
 
 	private void StopWish()
 	{
 		_pathDir = Vector3.Zero;
 		wishDir = Vector3.Zero;
+		_avoidanceMaxSpeed = -1f;
 		if (agent.AvoidanceEnabled) agent.Velocity = Vector3.Zero;
 	}
 
@@ -342,10 +361,21 @@ public partial class IndigenousController : CharacterController
 		if (Board.occupying || !Board.hasMoveTarget || _followSettled)
 		{
 			wishDir = Vector3.Zero;
+			_avoidanceMaxSpeed = 0f;
 			return;
 		}
 
 		safeVelocity.Y = 0f;
-		wishDir = safeVelocity.LengthSquared() > .0001f ? safeVelocity.Normalized() : Vector3.Zero;
+		float speed = safeVelocity.Length();
+		if (speed > 0.0001f)
+		{
+			wishDir = safeVelocity / speed;
+			_avoidanceMaxSpeed = Mathf.Min(speed, groundMaxSpeed);
+		}
+		else
+		{
+			wishDir = Vector3.Zero;
+			_avoidanceMaxSpeed = 0f;
+		}
 	}
 }

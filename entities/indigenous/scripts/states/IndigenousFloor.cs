@@ -12,7 +12,7 @@ public partial class IndigenousFloor : ICharacterState<IndigenousController>
 	public void Update(IndigenousController indigenous, double delta){}
 	public void Physics(IndigenousController indigenous, double delta)
 	{
-		CharacterController.MovementParams p = indigenous.GetGroundParams();
+		CharacterController.MovementParams p = indigenous.GetGroundParamsForMove();
 		float dt = (float)delta;
 
 		indigenous.IntegrateHorizontal(indigenous.wishDir, dt, p, grounded: true);

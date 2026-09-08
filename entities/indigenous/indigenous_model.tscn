@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://brcd27iqdxmco" path="res://entities/indigenous/assets/indigenous.glb" id="1_yh7wn"]
 [ext_resource type="Script" uid="uid://bkyu44sex66hb" path="res://components/MeshSquash.cs" id="2_jyhto"]
-[ext_resource type="Script" uid="uid://d27jfbyuory3j" path="res://entities/indigenous/IndigenousAnimManager.cs" id="3_anim"]
+[ext_resource type="Script" uid="uid://d27jfbyuory3j" path="res://entities/indigenous/scripts/IndigenousAnimManager.cs" id="3_anim"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0xji7"]
 filter_enabled = true

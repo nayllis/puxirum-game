@@ -11,7 +11,7 @@ public partial class IndigenousAir : ICharacterState<IndigenousController>
 	public void Update(IndigenousController indigenous, double delta){}
 	public void Physics(IndigenousController indigenous, double delta)
 	{
-		CharacterController.MovementParams p = indigenous.GetAirParams();
+		CharacterController.MovementParams p = indigenous.GetAirParamsForMove();
 		float dt = (float)delta;
 
 		indigenous.IntegrateHorizontal(indigenous.wishDir, dt, p, grounded: false);

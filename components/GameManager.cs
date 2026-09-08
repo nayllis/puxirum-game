@@ -145,4 +145,19 @@ public partial class GameManager : Node
 		}
 		return hits;
 	}
+
+	public static Basis GetUprightBasis(Basis basis, Vector3 upDirection = default)
+	{
+		if (upDirection == default) upDirection = Vector3.Up;
+		Vector3 forward = -basis.Z;
+		forward.Y = 0f;
+		if (forward.LengthSquared() < 0.0001f)
+		{
+			forward = -basis.X;
+			forward.Y = 0f;
+			if (forward.LengthSquared() < .0001f) forward = Vector3.Forward;
+		}
+		forward = forward.Normalized();
+		return Basis.LookingAt(forward, upDirection);
+	}
 }

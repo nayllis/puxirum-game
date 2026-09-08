@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://p8ediilxqqxr"]
+
+[ext_resource type="PackedScene" uid="uid://d2oyqewfbk700" path="res://objects/platforms/assets/logs_side_platform.glb" id="1_p3ov8"]
+[ext_resource type="Script" uid="uid://8vyofhsod05n" path="res://components/UprightObject.cs" id="2_gb0bp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gb0bp"]
+size = Vector3(2.6572266, 4.424391, 0.4942779)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p3ov8"]
+size = Vector3(0.6925049, 1.2519531, 0.16210938)
+
+[node name="logs_side_platform" unique_id=1396618538 instance=ExtResource("1_p3ov8")]
+script = ExtResource("2_gb0bp")
+
+[node name="Mesh" parent="." index="0" unique_id=1272433737]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.0073502064, 0)
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Mesh" index="0" unique_id=800847036]
+sync_to_physics = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/AnimatableBody3D" index="0" unique_id=1618404503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8932323, 0, 0)
+shape = SubResource("BoxShape3D_gb0bp")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Mesh/AnimatableBody3D" index="1" unique_id=1615410234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2365551, 0, 0)
+shape = SubResource("BoxShape3D_p3ov8")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." index="1" unique_id=435354734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.319591, 0)
+height = 3.0
+vertices = PackedVector3Array(-2.2683794, 0, -0.33972907, 2.256523, 0, -0.3541856, 2.256523, 0, 0.32527292, -2.2683794, 0, 0.32527292)

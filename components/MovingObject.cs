@@ -234,7 +234,7 @@ public partial class MovingObject : AnimatableBody3D
 	private void AddMoveTo(Transform3D target)
 	{
 		NodePath property = useGlobalSpace ? "global_transform" : "transform";
-		_tween.TweenProperty(_meshIsParent ? mesh : this, property, target, timePerSegment);
+		_tween.TweenProperty(this, property, target, timePerSegment);
 	}
 
 	private void AddWait()
