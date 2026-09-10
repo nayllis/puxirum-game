@@ -54,15 +54,13 @@ jumpAmount = 0.7
 stiffness = 40.0
 turnTilt = 0.17
 
-[node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 644296949) index="0" unique_id=392908549]
-bones/1/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
-bones/2/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
+[node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 1095894167) index="0" unique_id=210260118]
 bones/3/rotation = Quaternion(0.00077125157, 0, 0, 0.99999976)
 bones/4/position = Vector3(0.29968485, -0.020729925, -0.06411149)
 bones/5/position = Vector3(-0.29968485, -0.020729959, -0.06411149)
 bones/6/rotation = Quaternion(-0.016767435, 0.06727697, -0.0011307875, 0.9975928)
 
-[node name="body" parent="PlayerModel/player/Skeleton3D" index="1" unique_id=560041153]
+[node name="body" parent="PlayerModel/player/Skeleton3D" index="0" unique_id=787192263]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="AnimationTree" parent="PlayerModel" index="3" unique_id=2079867456 node_paths=PackedStringArray("body")]

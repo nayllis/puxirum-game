@@ -165,7 +165,7 @@ node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"moveset", &"Blend2"
 script = ExtResource("2_58iv5")
 visual = NodePath("../player/Skeleton3D/body")
 
-[node name="Skeleton3D" parent="player" parent_id_path=PackedInt32Array(644296949) index="0" unique_id=392908549]
+[node name="Skeleton3D" parent="player" parent_id_path=PackedInt32Array(1095894167) index="0" unique_id=210260118]
 bones/1/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
 bones/2/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
 bones/3/rotation = Quaternion(0.0047580753, 0, 0, 0.9999887)

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PuxirumGame"
-run/main_scene="uid://cc24xfhq4j1pe"
+run/main_scene="uid://cuobs1es31vls"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -27,6 +27,10 @@ project/assembly_name="PuxirumGame"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
+
+[func_godot]
+
+model_point_class_save_path="trenchbroom/models"
 
 [input]
 

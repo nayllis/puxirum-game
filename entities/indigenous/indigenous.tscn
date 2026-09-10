@@ -34,13 +34,13 @@ avoidance_priority = 0.7
 [node name="MeshSquash" parent="IndigenousModel" index="0" unique_id=1142658281 node_paths=PackedStringArray("body")]
 body = NodePath("../..")
 
-[node name="Skeleton3D" parent="IndigenousModel/player" parent_id_path=PackedInt32Array(1570124928, 1494405968) index="0" unique_id=1516852720]
-bones/3/rotation = Quaternion(0.00017546782, 0, 0, 1)
-bones/4/position = Vector3(0.29968485, -0.02640241, -0.06411149)
-bones/5/position = Vector3(-0.29968485, -0.026402462, -0.06411149)
-bones/6/rotation = Quaternion(-0.018344337, 0.06727512, -0.0012371285, 0.99756515)
+[node name="Skeleton3D" parent="IndigenousModel/player" parent_id_path=PackedInt32Array(1570124928, 726629480) index="0" unique_id=2112087321]
+bones/3/rotation = Quaternion(0.0001712227, 0, 0, 1)
+bones/4/position = Vector3(0.29968485, -0.027875291, -0.06411148)
+bones/5/position = Vector3(-0.29968485, -0.027875314, -0.06411148)
+bones/6/rotation = Quaternion(-0.01876623, 0.067274585, -0.0012655826, 0.9975572)
 
-[node name="body" parent="IndigenousModel/player/Skeleton3D" index="0" unique_id=1654831249]
+[node name="body" parent="IndigenousModel/player/Skeleton3D" index="0" unique_id=900433780]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="AnimationTree" parent="IndigenousModel" index="3" unique_id=779424754 node_paths=PackedStringArray("body")]

@@ -4,6 +4,5 @@
 
 [resource]
 script = ExtResource("1_ea4l6")
-fgd_name = "Puxirum"
-base_fgd_files = Array[Resource]([null])
+fgd_name = "PuxirumGame"
 metadata/_custom_type_script = "uid://drlmgulwbjwqu"
