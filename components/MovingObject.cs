@@ -10,8 +10,15 @@ public partial class MovingObject : AnimatableBody3D
 		Random
 	}
 
+	public enum ToggleLogic
+	{
+		Or,
+		And
+	}
+
 	[Export] public bool isEnabled = true;
-	[Export] public NodePath toggle;
+	[Export] public NodePath[] toggles;
+	[Export] public ToggleLogic toggleLogic = ToggleLogic.Or;
 	[Export] public MeshInstance3D mesh;
 
 	[ExportGroup("Movement Settings")]
@@ -33,6 +40,8 @@ public partial class MovingObject : AnimatableBody3D
 	private int _currentIndex = 0;
 	private bool _isMoving = false;
 	private bool _meshIsParent = false;
+	private readonly Godot.Collections.Array<Node> _toggleSources = [];
+	private bool _combinedOn;
 
 	public override void _Ready()
 	{
@@ -41,22 +50,7 @@ public partial class MovingObject : AnimatableBody3D
 		_meshIsParent = mesh != null && mesh.GetParent() == this;
 		EnsureCollision();
 		CacheWaypoints();
-
-		Node source = GetNodeOrNull(toggle);
-		if (source is ToggleInteractable toggleSource)
-		{
-			toggleSource.Toggled += OnToggled;
-			if (toggleSource.IsOn)
-				OnToggled(true);
-		}
-		else if (source is Interactable holdSource)
-		{
-			holdSource.SatisfiedChanged += OnToggled;
-			if (holdSource.IsSatisfied)
-				OnToggled(true);
-		}
-		else if (toggle != null && !toggle.IsEmpty)
-			GD.PrintErr($"{Name}: Interactable not found at '{toggle}'");
+		BindToggles();
 
 		if (_waypoints == null || _waypoints.Length < 2)
 		{
@@ -95,6 +89,78 @@ public partial class MovingObject : AnimatableBody3D
 			GlobalTransform = _waypoints[index];
 		else
 			Transform = _waypoints[index];
+	}
+
+	private void BindToggles()
+	{
+		if (toggles == null || toggles.Length == 0)
+			return;
+
+		foreach (NodePath path in toggles)
+		{
+			if (path == null || path.IsEmpty)
+				continue;
+
+			Node source = GetNodeOrNull(path);
+			if (source is ToggleInteractable toggleSource)
+			{
+				toggleSource.Toggled += OnSourceChanged;
+				_toggleSources.Add(toggleSource);
+			}
+			else if (source is Interactable interactable)
+			{
+				interactable.SatisfiedChanged += OnSourceChanged;
+				_toggleSources.Add(interactable);
+			}
+			else
+				GD.PrintErr($"{Name}: Interactable not found at '{path}'");
+		}
+
+		_combinedOn = EvaluateToggles();
+		if (_combinedOn)
+			OnToggled(true);
+	}
+
+	private void OnSourceChanged(bool _)
+	{
+		bool combined = EvaluateToggles();
+		if (combined == _combinedOn)
+			return;
+
+		_combinedOn = combined;
+		OnToggled(combined);
+	}
+
+	private bool EvaluateToggles()
+	{
+		if (_toggleSources.Count == 0)
+			return false;
+
+		if (toggleLogic == ToggleLogic.And)
+		{
+			foreach (Node source in _toggleSources)
+			{
+				if (!IsSourceOn(source))
+					return false;
+			}
+			return true;
+		}
+
+		foreach (Node source in _toggleSources)
+		{
+			if (IsSourceOn(source))
+				return true;
+		}
+		return false;
+	}
+
+	private static bool IsSourceOn(Node source)
+	{
+		if (source is ToggleInteractable toggle)
+			return toggle.IsOn;
+		if (source is Interactable interactable)
+			return interactable.IsSatisfied;
+		return false;
 	}
 
 	private void OnToggled(bool isOn)

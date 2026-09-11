@@ -49,6 +49,11 @@ public partial class GameManager : Node
 		if (@event.IsActionPressed("game_reload")) Reload();
     }
 
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        WorldFallCheck();
+    }
 
 	public static float LerpDelta(float speed, double delta)
 	{
@@ -81,6 +86,14 @@ public partial class GameManager : Node
 		GetTree().Paused = _isPaused;
 		Input.MouseMode = _isPaused ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
 		pauseMenu?.SetOpen(_isPaused);
+	}
+
+	public void WorldFallCheck()
+	{
+		if (player.GlobalPosition.Y < -100f)
+		{
+			Reload();
+		}
 	}
 
 	public static Vector3 CalculateInstantVelocity(Vector3 previousPosition, Vector3 currentPosition, double delta)

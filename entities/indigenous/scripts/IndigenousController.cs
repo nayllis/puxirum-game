@@ -18,7 +18,7 @@ public partial class IndigenousController : CharacterController
 	[Export] public bool useAirStrafe = true;
 
 	[ExportGroup("Occupy")]
-	[Export(PropertyHint.Range, "0.5, 4, .05")] public float occupyArriveDistance = 2.2f;
+	[Export(PropertyHint.Range, "0.1, 4, .05")] public float occupyArriveDistance = 2.2f;
 
 	[ExportGroup("Follow")]
 	[Export(PropertyHint.Range, "0.2, 2, .05")] public float followStopDistance = 0.7f;
