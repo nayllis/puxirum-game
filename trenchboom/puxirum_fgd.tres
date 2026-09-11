@@ -1,8 +1,15 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDFile" format=3 uid="uid://ceh5nxf7dh4nq"]
 
+[ext_resource type="Resource" uid="uid://cixn4na2h2d5r" path="res://objects/logs/log_1.tres" id="1_7go5d"]
+[ext_resource type="Resource" uid="uid://crgpdahjaj" path="res://addons/func_godot/fgd/func_godot_fgd.tres" id="1_8eo77"]
 [ext_resource type="Script" uid="uid://drlmgulwbjwqu" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_ea4l6"]
+[ext_resource type="Resource" uid="uid://beqbbrk0yofmv" path="res://objects/logs/log_2.tres" id="3_jn0os"]
+[ext_resource type="Resource" uid="uid://cteql8mmd6a4t" path="res://objects/logs/log_3.tres" id="4_tdb7g"]
+[ext_resource type="Resource" uid="uid://q0ocbfmhkmqr" path="res://objects/logs/log_4.tres" id="5_4b80k"]
 
 [resource]
 script = ExtResource("1_ea4l6")
 fgd_name = "PuxirumGame"
+base_fgd_files = Array[Resource]([ExtResource("1_8eo77")])
+entity_definitions = Array[Resource]([ExtResource("1_7go5d"), ExtResource("3_jn0os"), ExtResource("4_tdb7g"), ExtResource("5_4b80k")])
 metadata/_custom_type_script = "uid://drlmgulwbjwqu"

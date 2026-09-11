@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://mfvei0vioiyf"]
 
-[ext_resource type="Script" path="res://entities/interactables/HoldInteractable.cs" id="1_hold"]
+[ext_resource type="Script" uid="uid://dy2p84mv5nmt1" path="res://entities/interactables/HoldInteractable.cs" id="1_hold"]
 [ext_resource type="Material" uid="uid://dmedsp1d0tdsc" path="res://materials/prototype1.tres" id="2_mat"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_pad"]
@@ -9,22 +9,22 @@ size = Vector3(1.4, 0.35, 1.4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_pad"]
 size = Vector3(1.6, 0.5, 1.6)
 
-[node name="HoldInteractable" type="StaticBody3D" node_paths=PackedStringArray("slots")]
+[node name="HoldInteractable" type="StaticBody3D" unique_id=1779203949 node_paths=PackedStringArray("slots")]
 collision_layer = 17
 collision_mask = 0
 script = ExtResource("1_hold")
 slots = [NodePath("Slots/Slot1")]
 zoneRadius = 2.0
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=926704163]
 mesh = SubResource("BoxMesh_pad")
 surface_material_override/0 = ExtResource("2_mat")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1240973274]
 shape = SubResource("BoxShape3D_pad")
 
-[node name="Slots" type="Node3D" parent="."]
+[node name="Slots" type="Node3D" parent="." unique_id=290129576]
 
-[node name="Slot1" type="Marker3D" parent="Slots"]
+[node name="Slot1" type="Marker3D" parent="Slots" unique_id=1049389603]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 gizmo_extents = 0.4

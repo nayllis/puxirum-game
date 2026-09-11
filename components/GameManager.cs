@@ -28,13 +28,18 @@ public partial class GameManager : Node
 		public int shapeId;
 	}
 
+	[Export] public PauseMenu pauseMenu;
+	[Export] public PlayerController player;
+
 	private bool _isPaused = false;
 
 	public override void _Ready()
 	{
+		player ??= GetParent().FindChild("Player") as PlayerController;
 		base._Ready();
 		ProcessMode = ProcessModeEnum.Always;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		Settings.Load();
 	}
 
     public override void _UnhandledInput(InputEvent @event)
@@ -72,8 +77,10 @@ public partial class GameManager : Node
 	public void Pause()
 	{
 		_isPaused = !_isPaused;
+		player.hud.Visible = !_isPaused;
 		GetTree().Paused = _isPaused;
 		Input.MouseMode = _isPaused ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+		pauseMenu?.SetOpen(_isPaused);
 	}
 
 	public static Vector3 CalculateInstantVelocity(Vector3 previousPosition, Vector3 currentPosition, double delta)

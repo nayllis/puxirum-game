@@ -62,8 +62,19 @@ public partial class PlayerController : CharacterController
 	public CameraRig camBoom;
 	public Node3D camYaw;
 	public PlayerAnimManager animManager;
+	public CanvasLayer hud;
 
-	public float PlayerHeight => ((CylinderShape3D)standingShape.Shape).Height;
+	public float PlayerHeight
+	{
+		get
+		{
+			if (standingShape.Shape is CapsuleShape3D capsule)
+				return capsule.Height;
+			if (standingShape.Shape is CylinderShape3D cylinder)
+				return cylinder.Height;
+			return 1.2f;
+		}
+	}
 	public ICharacterState<PlayerController> GetState => _state;
 
 	public Vector2 smoothInputDir;
@@ -76,7 +87,7 @@ public partial class PlayerController : CharacterController
 	public bool alreadyJumped = false;
 	private double _coyoteTimer = 0;
 
-	private float ScaledMouseSens => mouseSensitivity * .0001f;
+	private float ScaledMouseSens => mouseSensitivity * Settings.mouseSensitivityScale * .0001f;
 	private double _jumpBufferTimer = -1;
 	private float _trampolineBounceLock;
 
@@ -95,6 +106,8 @@ public partial class PlayerController : CharacterController
 		if (animTree is not null) if (animTree is PlayerAnimManager manager) animManager = manager;
 		else GD.PrintErr("AnimationTree is not a PlayerAnimManager");
 		else GD.PrintErr("AnimationTree is null");
+
+		hud = GetNode<CanvasLayer>("HUD");
 	}
 
 	public void ChangeState(ICharacterState<PlayerController> state)

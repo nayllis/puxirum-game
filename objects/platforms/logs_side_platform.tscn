@@ -12,7 +12,7 @@ size = Vector3(0.6925049, 1.2519531, 0.16210938)
 [node name="logs_side_platform" unique_id=1396618538 instance=ExtResource("1_p3ov8")]
 script = ExtResource("2_gb0bp")
 
-[node name="Mesh" parent="." index="0" unique_id=1752249651]
+[node name="Mesh" parent="." index="0" unique_id=2048672917]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0.0073502064, 0)
 
 [node name="AnimatableBody3D" type="AnimatableBody3D" parent="Mesh" index="0" unique_id=800847036]

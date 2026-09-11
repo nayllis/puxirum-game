@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dp3ek0hvjsk4w"]
+
+[ext_resource type="PackedScene" uid="uid://t5yuw5wwvenn" path="res://objects/logs/assets/Log4.glb" id="1_xpen0"]
+
+[node name="Log4" unique_id=1100136356 instance=ExtResource("1_xpen0")]

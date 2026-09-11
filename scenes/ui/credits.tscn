@@ -1,0 +1,63 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scenes/ui/Credits.cs" id="1_crdts"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_crdts")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.14, 0.1, 1)
+
+[node name="Text" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -240.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][font_size=48][b]Puxirum[/b][/font_size]
+
+[font_size=24][b]Direção e Programação[/b][/font_size]
+Nome Aqui
+
+[font_size=24][b]Arte[/b][/font_size]
+Nome Aqui
+
+[font_size=24][b]Música e Som[/b][/font_size]
+Nome Aqui
+
+[font_size=24][b]Agradecimentos[/b][/font_size]
+Nome Aqui[/center]"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -90.0
+offset_right = 80.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Voltar"

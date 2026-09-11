@@ -1,0 +1,59 @@
+OS:	Windows 10 Version 22H2
+Qt:	6.10.3
+GL_VENDOR:	NVIDIA Corporation
+GL_RENDERER:	NVIDIA GeForce RTX 4060/PCIe/SSE2
+GL_VERSION:	4.6.0 NVIDIA 610.88
+TrenchBroom Version:	2026.2
+TrenchBroom Build:	v2026.2 Release Win64
+Reason:	3221225477
+Stack trace (most recent call first):
+#0  0x00007ff699bde803 in tb::ui::`anonymous namespace'::TrenchBroomUnhandledExceptionFilter
+#1  0x00007ffa44bbdda6 in UnhandledExceptionFilter
+#2  0x00007ffa46ed54af in memset
+#3  0x00007ffa46ebc885 in _C_specific_handler
+#4  0x00007ffa46ed23ae in _chkstk
+#5  0x00007ffa46e814b3 in RtlRaiseException
+#6  0x00007ffa46ed0ebd in KiUserExceptionDispatcher
+#7  0x00007ff699db3a9b in public: bool __cdecl tb::ui::Action::enabled(class tb::ui::ActionExecutionContext const & __ptr64)const __ptr64
+#8  0x00007ff699d7f2bd in private: void __cdecl tb::ui::MapViewBase::updateActionStates(void) __ptr64
+#9  0x00007ff699d7ef3c in private: void __cdecl tb::ui::MapViewBase::toolChanged(class tb::ui::Tool & __ptr64) __ptr64
+#10 0x00007ff699d9b2b7 in public: void __cdecl tb::Notifier<class tb::ui::Tool & __ptr64>::operator()<class tb::ui::Tool & __ptr64>(class tb::ui::Tool & __ptr64) __ptr64
+#11 0x00007ff699da0702 in public: void __cdecl tb::ui::ToolBox::deactivateAllTools(void) __ptr64
+#12 0x00007ff699c42e04 in public: void __cdecl tb::Notifier<>::operator()<>(void) __ptr64
+#13 0x00007ff699cb338d in public: class kdl::result<void,struct kdl::result_error> __cdecl tb::ui::MapDocument::load(struct tb::mdl::EnvironmentConfig const & __ptr64,struct tb::mdl::GameInfo const & __ptr64,enum tb::mdl::MapFormat,class vm::bbox<double,3> const & __ptr64,class std::filesystem::path) __ptr64
+#14 0x00007ff699c7fc71 in public: class kdl::result<void,struct kdl::result_error> __cdecl tb::ui::MapWindowManager::loadDocument(struct tb::mdl::GameInfo const & __ptr64,enum tb::mdl::MapFormat,class vm::bbox<double,3> const & __ptr64,class std::filesystem::path) __ptr64
+#15 0x00007ff699bcfe2c in `tb::ui::AppController::openDocument'::`2'::<lambda_3>::operator()
+#16 0x00007ff699bd833b in public: bool __cdecl tb::ui::AppController::openDocument(class std::filesystem::path const & __ptr64) __ptr64
+#17 0x00007ff699bd6dec in QtPrivate::QCallableObject<`tb::ui::AppController::connectObservers'::`2'::<lambda_1>,QtPrivate::List<std::filesystem::path const &>,void>::impl
+#18 0x00007ff98e1db64e in QObject::qt_static_metacall
+#19 0x00007ff98e1de213 in QMetaObject::activate
+#20 0x00007ff699bf5786 in public: void __cdecl tb::ui::RecentDocuments::loadDocument(class std::filesystem::path const & __ptr64)const __ptr64
+#21 0x00007ff98e1db64e in QObject::qt_static_metacall
+#22 0x00007ff98e1de213 in QMetaObject::activate
+#23 0x00007ff98ef00390 in QAction::activate
+#24 0x00007ff98f5bc33e in QMenu::actionGeometry
+#25 0x00007ff98f5bc0f2 in QMenu::actionGeometry
+#26 0x00007ff98f5c2b22 in QMenu::mouseReleaseEvent
+#27 0x00007ff98f4497ef in QWidget::event
+#28 0x00007ff98f5bd9cf in QMenu::event
+#29 0x00007ff98f403520 in QApplicationPrivate::notify_helper
+#30 0x00007ff98f4016e3 in QApplication::notify
+#31 0x00007ff98e199c50 in QCoreApplication::notifyInternal2
+#32 0x00007ff98f405f68 in QApplicationPrivate::sendMouseEvent
+#33 0x00007ff98f46fd83 in QWidgetRepaintManager::updateStaticContentsSize
+#34 0x00007ff98f46dce8 in QWidgetRepaintManager::updateStaticContentsSize
+#35 0x00007ff98f403520 in QApplicationPrivate::notify_helper
+#36 0x00007ff98f40261d in QApplication::notify
+#37 0x00007ff98e199c50 in QCoreApplication::notifyInternal2
+#38 0x00007ff98ebae703 in QWindowPrivate::forwardToPopup
+#39 0x00007ff98eb5f4b5 in QGuiApplicationPrivate::processMouseEvent
+#40 0x00007ff98ebc044a in QWindowSystemInterface::sendWindowSystemEvents
+#41 0x00007ff98e33921f in QEventDispatcherWin32::processEvents
+#42 0x00007ff98ee85758 in QWindowsGuiEventDispatcher::processEvents
+#43 0x00007ff98e1a0663 in QEventLoop::exec
+#44 0x00007ff98e198179 in QCoreApplication::exec
+#45 0x00007ff699bb08b3 in main
+#46 0x00007ff69a73ddff in qtEntryPoint
+#47 0x00007ff69a735705 in __scrt_common_main_seh
+#48 0x00007ffa45477613 in BaseThreadInitThunk
+#49 0x00007ffa46e826b0 in RtlUserThreadStart

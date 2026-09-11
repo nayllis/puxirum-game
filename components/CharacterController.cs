@@ -16,6 +16,7 @@ public partial class CharacterController : CharacterBody3D
 	[Export(PropertyHint.Range, "0.05, 0.3, .01")] public float stepLowHeight = .12f;
 
 	public CollisionShape3D colShape;
+	public bool stepEnabled = true;
 
 	public Vector2 inputDir;
 	public Vector3 wishDir;
@@ -40,6 +41,11 @@ public partial class CharacterController : CharacterBody3D
 
 		colShape = GetNodeOrNull<CollisionShape3D>("StandingShape")
 			?? GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
+
+		FloorBlockOnWall = false;
+		FloorConstantSpeed = true;
+		FloorMaxAngle = Mathf.DegToRad(60f);
+		FloorSnapLength = Mathf.Max(FloorSnapLength, .25f);
 	}
 
 	public override void _Ready()
@@ -66,7 +72,8 @@ public partial class CharacterController : CharacterBody3D
 		horizontalVelocity.Y = 0;
 		horizontalVelocity.Z = Velocity.Z;
 
-		TryStepUp();
+		if (stepEnabled)
+			TryStepUp();
 		MoveAndSlide();
 	}
 
@@ -78,73 +85,52 @@ public partial class CharacterController : CharacterBody3D
 		}
 	}
 
+	public void SetStepEnabled(bool enabled)
+	{
+		stepEnabled = enabled;
+		FloorBlockOnWall = !enabled;
+		FloorConstantSpeed = enabled;
+		FloorSnapLength = enabled ? .25f : 0f;
+	}
+
 	protected void TryStepUp()
 	{
-		if (!IsOnFloor() || wishDir.LengthSquared() < .0001f)
+		if (!stepEnabled || !IsOnFloor())
 			return;
 
-		Vector3 forward = wishDir;
-		forward.Y = 0f;
-		if (forward.LengthSquared() < .0001f)
-			return;
-		forward = forward.Normalized();
-
-		float maxHitNormal = .3f;
-		float radius = GetStepRadius();
-		float checkDist = Mathf.Max(stepCheckDistance, radius + .1f);
-		Vector3 probe = forward * checkDist;
-		uint mask = CollisionMask;
-		Godot.Collections.Array<Rid> exceptions = [GetRid()];
-		Vector3 feet = GlobalPosition;
-
-		GameManager.RayCastResult low = GameManager.TestRayCollisionPoint(
-			this,
-			feet + Vector3.Up * stepLowHeight,
-			feet + probe + Vector3.Up * stepLowHeight,
-			mask, exceptions);
-		if (!low.hasHit || low.normal.Y > maxHitNormal)
+		Vector3 horiz = new(Velocity.X, 0f, Velocity.Z);
+		if (horiz.LengthSquared() < .0001f)
 			return;
 
-		Vector3 wallNormal = low.normal;
-		wallNormal.Y = 0f;
-		if (wallNormal.LengthSquared() < .0001f)
-			wallNormal = -forward;
-		else
-			wallNormal = wallNormal.Normalized();
+		float dt = (float)GetPhysicsProcessDeltaTime();
+		Vector3 motion = horiz * dt;
+		if (motion.Length() < stepCheckDistance)
+			motion = horiz.Normalized() * stepCheckDistance;
 
-		Vector3 highFrom = low.hit + Vector3.Up * (maxStepHeight - stepLowHeight) + wallNormal * .02f;
-		GameManager.RayCastResult high = GameManager.TestRayCollisionPoint(
-			this,
-			highFrom,
-			highFrom - wallNormal * .15f,
-			mask, exceptions);
-		if (high.hasHit && high.normal.Y < maxHitNormal)
+		KinematicCollision3D hit = new();
+		if (!TestMove(GlobalTransform, motion, hit))
 			return;
 
-		Vector3 downFrom = low.hit - wallNormal * .1f + Vector3.Up * maxStepHeight;
-		GameManager.RayCastResult down = GameManager.TestRayCollisionPoint(
-			this,
-			downFrom,
-			downFrom - Vector3.Up * maxStepHeight,
-			mask, exceptions);
-		if (!down.hasHit || down.normal.Y < maxHitNormal)
+		if (hit.GetNormal().Y >= Mathf.Cos(FloorMaxAngle))
 			return;
 
-		float lift = down.hit.Y - feet.Y + .02f;
-		if (lift < .03f || lift > maxStepHeight + .05f)
-			return;
+		float step = Mathf.Max(stepLowHeight, .05f);
+		for (float h = step; h <= maxStepHeight + .001f; h += step)
+		{
+			Transform3D lifted = GlobalTransform;
+			lifted.Origin += Vector3.Up * h;
+			if (TestMove(lifted, motion))
+				continue;
 
-		Vector3 ontoStep = -wallNormal * .15f;
-		Transform3D lifted = GlobalTransform;
-		lifted.Origin += Vector3.Up * lift;
-		if (TestMove(lifted, ontoStep))
+			GlobalPosition += Vector3.Up * h;
 			return;
-
-		GlobalPosition += Vector3.Up * lift;
+		}
 	}
 
 	private float GetStepRadius()
 	{
+		if (colShape?.Shape is CapsuleShape3D capsule)
+			return capsule.Radius;
 		if (colShape?.Shape is CylinderShape3D cylinder)
 			return cylinder.Radius;
 
@@ -154,25 +140,21 @@ public partial class CharacterController : CharacterBody3D
 	public void IntegrateHorizontal(Vector3 direction, float delta, MovementParams p, bool grounded)
 	{
 		Vector3 horiz = GetHorizontalVelocity();
-		Vector3 target = direction * p.MaxSpeed;
+		Vector3 flatDir = new(direction.X, 0f, direction.Z);
+		Vector3 target = flatDir * p.MaxSpeed;
 
-		bool reversing = horiz.Length() > .0001 && horiz.Dot(direction) < 0f;
+		bool reversing = horiz.Length() > .0001 && horiz.Dot(flatDir) < 0f;
 
-		if (grounded && IsOnFloor())
+		if (flatDir.LengthSquared() > 0.0001f && !reversing)
 		{
-			direction = direction.Slide(GetFloorNormal());
-		}
-
-		if (direction.LengthSquared() > 0.0001f && !reversing)
-		{
-			direction = direction.Normalized();
+			flatDir = flatDir.Normalized();
 
 			if (p.UseSlide)
 			{
 				float speed = horiz.Length();
 				if (speed > .0001f)
 				{
-					Vector3 newDir = horiz.Normalized().MoveToward(direction, p.Acceleration * delta);
+					Vector3 newDir = horiz.Normalized().MoveToward(flatDir, p.Acceleration * delta);
 					if (newDir.LengthSquared() > .0001f)
 					{
 						horiz = newDir.Normalized() * speed;
@@ -184,7 +166,7 @@ public partial class CharacterController : CharacterBody3D
 			{
 				if (!grounded && p.UseAirStrafe)
 				{
-					AccelerateAirStrafe(ref horiz, direction, p.MaxSpeed, p.Acceleration, delta);
+					AccelerateAirStrafe(ref horiz, flatDir, p.MaxSpeed, p.Acceleration, delta);
 				}
 				else
 				{
@@ -197,7 +179,7 @@ public partial class CharacterController : CharacterBody3D
 			horiz = ApplyDeceleration(horiz, p.Deceleration, delta);
 		}
 
-		Velocity = new Vector3(horiz.X, Velocity.Y, horiz.Z);
+		Velocity = new Vector3(horiz.X, grounded && IsOnFloor() ? 0f : Velocity.Y, horiz.Z);
 	}
 
 	public void IntegrateVertical(float delta, MovementParams p, bool applyGravity)

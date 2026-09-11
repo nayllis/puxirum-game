@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://brhc1jjdfct3b"
+path="res://.godot/imported/demo_level-crash.map-343cebf64416af8102f512e6985a7118.tres"
+
+[deps]
+
+source_file="res://trenchboom/maps/demo_level-crash.map"
+dest_files=["res://.godot/imported/demo_level-crash.map-343cebf64416af8102f512e6985a7118.tres"]
+
+[params]
+

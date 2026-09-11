@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" format=3 uid="uid://beqbbrk0yofmv"]
+
+[ext_resource type="Script" uid="uid://d1nwwgcrner8b" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class_display_descriptor.gd" id="1_5rj33"]
+[ext_resource type="PackedScene" uid="uid://c6h104oy3k68i" path="res://objects/logs/log_2.tscn" id="2_5rj33"]
+[ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="3_bpce2"]
+
+[sub_resource type="Resource" id="Resource_mtcw0"]
+script = ExtResource("1_5rj33")
+display_asset_path = "\"objects/logs/assets/Log2.glb\""
+metadata/_custom_type_script = "uid://d1nwwgcrner8b"
+
+[resource]
+script = ExtResource("3_bpce2")
+scene_file = ExtResource("2_5rj33")
+display_descriptors = Array[ExtResource("1_5rj33")]([SubResource("Resource_mtcw0")])
+classname = "log_2"
+description = "log."
+class_properties = Dictionary[String, Variant]({
+"angles": Vector3(0, 0, 0)
+})
+meta_properties = Dictionary[String, Variant]({
+"color": Color(0.8, 0.8, 0.8, 1),
+"model": "\"objects/logs/assets/Log2.glb\"",
+"size": AABB(0, 0, 0, 0, 0, 0)
+})
+metadata/_custom_type_script = "uid://cxsqwtsqd8w33"

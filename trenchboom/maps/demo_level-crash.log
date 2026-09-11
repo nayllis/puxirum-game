@@ -1,0 +1,10 @@
+Loading document from "D:\\Documentos\\Godot\\puxirum-game\\trenchboom\\maps\\demo_level.map"
+Adding file system path "D:\\Downloads\\TrenchBroom-Win64-AMD64-v2026.1-Release\\defaults\\assets"
+Adding file system path "D:\\Documentos\\Godot\\puxirum-game\\"
+Found 0 shaders
+At line 34, column 101: Unknown entity definition header properties 'angles'
+Loaded entity definition file PuxirumGame.fgd
+Found 0 shaders
+No usable diffuse textures found for material 0 of model 'objects\logs\assets\Log1.glb', loading fallback texture
+Reloading material collections
+Found 0 shaders

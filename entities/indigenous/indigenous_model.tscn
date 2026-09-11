@@ -165,13 +165,13 @@ node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"moveset", &"Blend2"
 script = ExtResource("2_jyhto")
 visual = NodePath("../player/Skeleton3D/body")
 
-[node name="Skeleton3D" parent="player" parent_id_path=PackedInt32Array(726629480) index="0" unique_id=2112087321]
+[node name="Skeleton3D" parent="player" parent_id_path=PackedInt32Array(2031847270) index="0" unique_id=360594711]
 bones/1/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
 bones/2/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, 3.0908623e-08)
-bones/3/rotation = Quaternion(0.00012675684, 0, 0, 1)
-bones/4/position = Vector3(0.29968485, -0.027805636, -0.06411148)
-bones/5/position = Vector3(-0.29968485, -0.027805658, -0.06411148)
-bones/6/rotation = Quaternion(-0.018797774, 0.06727456, -0.00126771, 0.9975566)
+bones/3/rotation = Quaternion(0.00016617915, 0, 0, 1)
+bones/4/position = Vector3(0.29968485, -0.02786739, -0.06411148)
+bones/5/position = Vector3(-0.29968485, -0.027867412, -0.06411148)
+bones/6/rotation = Quaternion(-0.018769812, 0.06727459, -0.0012658242, 0.9975572)
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="3" unique_id=779424754]
 tree_root = SubResource("AnimationNodeBlendTree_dxjqj")

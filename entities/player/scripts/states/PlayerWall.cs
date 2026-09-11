@@ -11,10 +11,14 @@ public partial class PlayerWall : ICharacterState<PlayerController>
         _onCooldown = false;
         _wallRunCooldown = .2;
         SampleWall(player, out _, out _);
+        player.SetStepEnabled(false);
         player.animManager.movesetPlayback.Travel("wall_run");
     }
 
-	public void Exit(PlayerController player) { }
+	public void Exit(PlayerController player)
+	{
+		player.SetStepEnabled(true);
+	}
 
 	public void HandleInput(PlayerController player, InputEvent @event)
     {

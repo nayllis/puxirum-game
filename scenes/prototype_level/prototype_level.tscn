@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c5px88knq1ng" path="res://entities/player/player.tscn" id="2_h58yb"]
 [ext_resource type="Material" uid="uid://dmedsp1d0tdsc" path="res://materials/prototype1.tres" id="3_h58yb"]
 [ext_resource type="PackedScene" uid="uid://bxw4q4echr0ak" path="res://entities/indigenous/indigenous.tscn" id="4_hqc6j"]
-[ext_resource type="PackedScene" path="res://entities/interactables/hold_interactable.tscn" id="6_4tqo0"]
+[ext_resource type="PackedScene" uid="uid://mfvei0vioiyf" path="res://entities/interactables/hold_interactable.tscn" id="6_4tqo0"]
 [ext_resource type="PackedScene" uid="uid://cmr7yk3214iru" path="res://entities/interactables/gate.tscn" id="6_gate"]
 [ext_resource type="PackedScene" uid="uid://dqmto80pa72n7" path="res://objects/van/van.tscn" id="7_q6nje"]
 [ext_resource type="PackedScene" uid="uid://d16dphtud758c" path="res://objects/bulldozer/bulldozer.tscn" id="8_5ilxw"]

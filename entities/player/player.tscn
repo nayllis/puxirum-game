@@ -7,9 +7,9 @@
 [ext_resource type="Script" uid="uid://sy5xr8nvo16w" path="res://components/CameraRig.cs" id="3_sglur"]
 [ext_resource type="Script" uid="uid://87qu8w4p8kpj" path="res://components/Reticle.cs" id="4_reticle"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_klui8"]
-height = 1.2
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_klui8"]
 radius = 0.28320313
+height = 1.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3s436"]
 size = Vector3(0.5720215, 0.55859375, 0.9779663)
@@ -54,13 +54,13 @@ jumpAmount = 0.7
 stiffness = 40.0
 turnTilt = 0.17
 
-[node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 1095894167) index="0" unique_id=210260118]
-bones/3/rotation = Quaternion(0.00077125157, 0, 0, 0.99999976)
-bones/4/position = Vector3(0.29968485, -0.020729925, -0.06411149)
-bones/5/position = Vector3(-0.29968485, -0.020729959, -0.06411149)
-bones/6/rotation = Quaternion(-0.016767435, 0.06727697, -0.0011307875, 0.9975928)
+[node name="Skeleton3D" parent="PlayerModel/player" parent_id_path=PackedInt32Array(1591702748, 628389598) index="0" unique_id=1495069966]
+bones/3/rotation = Quaternion(0.00019905255, 0, 0, 1)
+bones/4/position = Vector3(0.29968485, -0.027918886, -0.06411148)
+bones/5/position = Vector3(-0.29968485, -0.027918909, -0.06411148)
+bones/6/rotation = Quaternion(-0.01874649, 0.06727463, -0.0012642519, 0.99755764)
 
-[node name="body" parent="PlayerModel/player/Skeleton3D" index="0" unique_id=787192263]
+[node name="body" parent="PlayerModel/player/Skeleton3D" index="0" unique_id=1287682135]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="AnimationTree" parent="PlayerModel" index="3" unique_id=2079867456 node_paths=PackedStringArray("body")]
@@ -69,7 +69,7 @@ airPlaybackSpeed = 2.0
 
 [node name="StandingShape" type="CollisionShape3D" parent="." unique_id=1541405300]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-shape = SubResource("CylinderShape3D_klui8")
+shape = SubResource("CapsuleShape3D_klui8")
 
 [node name="ProneShape" type="CollisionShape3D" parent="." unique_id=141382874]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31863344, -0.20492554)

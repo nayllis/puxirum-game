@@ -110,7 +110,7 @@ public partial class Interactable : StaticBody3D, IInteractable
 			npc.ConfirmOccupyArrive();
 	}
 
-	private bool ComputeSatisfied()
+	protected virtual bool ComputeSatisfied()
 	{
 		if (Occupants.Count < requiredCount)
 			return false;
@@ -124,7 +124,7 @@ public partial class Interactable : StaticBody3D, IInteractable
 		return true;
 	}
 
-	private void RefreshSatisfied()
+	protected void RefreshSatisfied()
 	{
 		bool now = ComputeSatisfied();
 		if (now == _wasSatisfied)
